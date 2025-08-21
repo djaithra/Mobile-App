@@ -14,11 +14,11 @@ import ProductListItem from "@/components/ProductListItem";
 
 export default function HomeScreen() {
   return (
-       <FlatList data={products} renderItem={({ item }) => (
-         <VStack space="md" className="p-5">
-           <ProductListItem product={item} />
-         </VStack>
-       )} 
+       <FlatList 
+          numColumns={2} 
+          data={products} 
+          contentContainerClassName="gap-2"
+          renderItem={({ item }) => (<ProductListItem product={item} />)}
        />
   );
 }
