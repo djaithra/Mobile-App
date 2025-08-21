@@ -6,6 +6,7 @@ import { Image } from "react-native";
 import { Card } from "@/components/ui/card";
 import { Heading } from "@/components/ui/heading";
 import React from "react";
+import INRDisplay from "./INRDisplay";
 
 interface Product {
   image: string;
@@ -42,7 +43,7 @@ export default function ProductListItem({ product }: ProductListItemProps) {
           </VStack>
           <VStack className="mb-2"> 
             <Text className="text-sm font-bold mb-2 text-typography-700">
-                Price: {product.price}
+                <INRDisplay amount={product.price} />
               </Text>
           </VStack>
           <Box className="flex-col sm:flex-row">
