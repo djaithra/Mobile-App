@@ -9,10 +9,13 @@
     "web": "DARK_MODE=media DARK_MODE=class expo start --web"
   },
   "dependencies": {
+    "@expo/html-elements": "^0.4.2",
     "@gluestack-style/react": "^1.0.57",
     "@gluestack-ui/button": "^1.0.14",
     "@gluestack-ui/config": "^1.1.20",
     "@gluestack-ui/icon": "^0.1.27",
+    "@gluestack-ui/image": "^0.1.17",
+    "@gluestack-ui/link": "^0.1.29",
     "@gluestack-ui/nativewind-utils": "^1.0.26",
     "@gluestack-ui/overlay": "^0.1.22",
     "@gluestack-ui/themed": "^1.1.73",
