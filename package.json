@@ -4,9 +4,9 @@
   "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",
-    "android": "DARK_MODE=media expo start --android",
-    "ios": "DARK_MODE=media expo start --ios",
-    "web": "DARK_MODE=media expo start --web"
+    "android": "DARK_MODE=class expo start --android",
+    "ios": "DARK_MODE=class expo start --ios",
+    "web": "DARK_MODE=class expo start --web"
   },
   "dependencies": {
     "@gluestack-ui/button": "^1.0.14",
