@@ -1,3 +1,6 @@
+import React from "react";
+import { useLocalSearchParams } from "expo-router";
+import products from "@/assets/products.json";
 import { Button, ButtonText } from "@/components/ui/button"
 import { Box } from "@/components/ui/box"
 import { Text } from "@/components/ui/text"
@@ -5,27 +8,16 @@ import { VStack } from "@/components/ui/vstack";
 import { Image, Pressable } from "react-native";
 import { Card } from "@/components/ui/card";
 import { Heading } from "@/components/ui/heading";
-import React from "react";
 import INRDisplay from "@/components/INRDisplay";
-import { Link } from "expo-router";
 
-interface Product {
-  id: string | number;
-  image: string;
-  name: string;
-  description: string;
-  price: number | string;
-}
-
-interface ProductListItemProps {
-  product: Product;
-}
-
-export default function ProductListItem({ product }: ProductListItemProps) {
+export default function ProductDetailsScreen() {  
+  const { id } = useLocalSearchParams<{ id: string }>();
+  const product = products.find((p) => p.id === Number(id));
+  if (!product) {
+    return <Text>Product not found</Text>;
+  }
   return (
-    <Link href={`/product/${product.id}`} asChild>
-      <Pressable className="flex-1">
-        <Card className="flex-1 m-1 p-5 rounded-lg overflow-hidden">
+              <Card className="flex-1 m-1 p-5 rounded-lg overflow-hidden">
           <Image
             source={{ uri: product.image }}
             className="mb-6 h-[240px] w-full rounded-md"
@@ -62,7 +54,5 @@ export default function ProductListItem({ product }: ProductListItemProps) {
             </Button>
           </Box>
         </Card>
-      </Pressable>
-    </Link>
   );
 }
