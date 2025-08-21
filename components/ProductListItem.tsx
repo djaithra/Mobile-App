@@ -7,7 +7,18 @@ import { Card } from "@/components/ui/card";
 import { Heading } from "@/components/ui/heading";
 import React from "react";
 
-export default function ProductListItem({ product }) {
+interface Product {
+  image: string;
+  name: string;
+  description: string;
+  price: number | string;
+}
+
+interface ProductListItemProps {
+  product: Product;
+}
+
+export default function ProductListItem({ product }: ProductListItemProps) {
   return ( 
       <VStack space="md" className="p-5">
         <Card className="p-5 rounded-lg max-w-[360px] m-3 overflow-hidden">
