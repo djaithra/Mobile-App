@@ -2,13 +2,11 @@ import { FlatList, useWindowDimensions } from "react-native";
 import React = require("react");
 import products from "@/assets/products.json";
 import ProductListItem from "@/components/ProductListItem";
+import { useBreakpointValue } from "@/components/ui/utils/use-break-point-value";
 
 export default function HomeScreen() {
-  const { width } = useWindowDimensions();
-  // Set minCardWidth based on device type
-  const minCardWidth = width < 600 ? 200 : 280;
-  const numColumns = Math.max(1, Math.floor(width / minCardWidth));
-
+  const numColumns =
+    (useBreakpointValue({ base: 2, md: 3, lg: 4 }) as number) ?? 2;
   return (
     <FlatList
       key={numColumns}
