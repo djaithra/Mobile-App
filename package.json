@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "expo-router/entry",
   "scripts": {
-    "start": "expo start",
+    "update-ip": "node scripts/update-ip.js",
+    "prestart": "npm run update-ip",
+    "start": "expo start --clear",
     "android": "DARK_MODE=media DARK_MODE=class expo start --android",
     "ios": "DARK_MODE=media DARK_MODE=class expo start --ios",
     "web": "DARK_MODE=media DARK_MODE=class expo start --web"
