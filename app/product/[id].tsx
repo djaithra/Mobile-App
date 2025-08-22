@@ -9,6 +9,7 @@ import { Image, Pressable } from "react-native";
 import { Card } from "@/components/ui/card";
 import { Heading } from "@/components/ui/heading";
 import INRDisplay from "@/components/INRDisplay";
+import { Stack } from "expo-router";
 
 export default function ProductDetailsScreen() {  
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -18,6 +19,7 @@ export default function ProductDetailsScreen() {
   }
   return (
               <Card className="flex-1 m-1 p-5 rounded-lg overflow-hidden">
+                <Stack.Screen options={{title: product.name}}/>
           <Image
             source={{ uri: product.image }}
             className="mb-6 h-[240px] w-full rounded-md"

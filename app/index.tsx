@@ -5,12 +5,13 @@ import ProductListItem from "@/components/ProductListItem";
 
 export default function HomeScreen() {
   const { width } = useWindowDimensions();
-  // Set a minimum card width (e.g., 220px)
-  const minCardWidth = 200;
+  // Set minCardWidth based on device type
+  const minCardWidth = width < 600 ? 200 : 280;
   const numColumns = Math.max(1, Math.floor(width / minCardWidth));
 
   return (
     <FlatList 
+      key={numColumns}
       numColumns={numColumns}
       data={products}
       contentContainerClassName="gap-2"
