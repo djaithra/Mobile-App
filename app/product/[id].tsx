@@ -18,43 +18,43 @@ export default function ProductDetailsScreen() {
     return <Text>Product not found</Text>;
   }
   return (
-    <Box className="flex-1 items-center p-3">
-      <Stack.Screen options={{ title: product.name }} />
-      <Card className="flex-1 m-1 p-5 rounded-lg overflow-hidden">
-        <Image
-          source={{ uri: product.image }}
-          className="mb-6 h-[240px] w-full rounded-md"
-          alt={`${product.name} image`}
-          resizeMode="contain"
-        />
-        <Text className="text-sm font-normal mb-2 text-typography-700">
-          Electronics Items
+    <Card className="flex-1 m-1 p-5 rounded-lg overflow-hidden">
+      <Stack.Screen
+        options={{ title: product.name, headerTitleAlign: "center" }}
+      />
+      <Image
+        source={{ uri: product.image }}
+        className="mb-6 h-[240px] w-full rounded-md"
+        alt={`${product.name} image`}
+        resizeMode="contain"
+      />
+      <Text className="text-sm font-normal mb-2 text-typography-700">
+        Electronics Items
+      </Text>
+      <VStack className="mb-6">
+        <Heading size="md" className="mb-4">
+          {product.name}
+        </Heading>
+        <Text size="sm">{product.description}</Text>
+      </VStack>
+      <VStack className="mb-2">
+        <Text className="text-sm font-bold mb-2 text-typography-700">
+          <INRDisplay amount={product.price} />
         </Text>
-        <VStack className="mb-6">
-          <Heading size="md" className="mb-4">
-            {product.name}
-          </Heading>
-          <Text size="sm">{product.description}</Text>
-        </VStack>
-        <VStack className="mb-2">
-          <Text className="text-sm font-bold mb-2 text-typography-700">
-            <INRDisplay amount={product.price} />
-          </Text>
-        </VStack>
-        <Box className="flex-col sm:flex-row">
-          <Button className="px-4 py-2 mr-0 mb-3 sm:mr-3 sm:mb-0 sm:flex-1">
-            <ButtonText size="sm">Add to cart</ButtonText>
-          </Button>
-          <Button
-            variant="outline"
-            className="px-4 py-2 border-outline-300 sm:flex-1"
-          >
-            <ButtonText size="sm" className="text-typography-600">
-              Wishlist
-            </ButtonText>
-          </Button>
-        </Box>
-      </Card>
-    </Box>
+      </VStack>
+      <Box className="flex-col sm:flex-row">
+        <Button className="px-4 py-2 mr-0 mb-3 sm:mr-3 sm:mb-0 sm:flex-1">
+          <ButtonText size="sm">Add to cart</ButtonText>
+        </Button>
+        <Button
+          variant="outline"
+          className="px-4 py-2 border-outline-300 sm:flex-1"
+        >
+          <ButtonText size="sm" className="text-typography-600">
+            Wishlist
+          </ButtonText>
+        </Button>
+      </Box>
+    </Card>
   );
 }
