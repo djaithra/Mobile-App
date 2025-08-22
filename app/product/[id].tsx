@@ -1,22 +1,46 @@
 import React from "react";
 import { useLocalSearchParams } from "expo-router";
-import products from "@/assets/products.json";
+//import products from "@/assets/products.json";
 import { Button, ButtonText } from "@/components/ui/button";
 import { Box } from "@/components/ui/box";
 import { Text } from "@/components/ui/text";
 import { VStack } from "@/components/ui/vstack";
-import { Image, Pressable } from "react-native";
+import { ActivityIndicator, Image } from "react-native";
 import { Card } from "@/components/ui/card";
 import { Heading } from "@/components/ui/heading";
 import INRDisplay from "@/components/INRDisplay";
 import { Stack } from "expo-router";
+import { getProductById } from "@/api/product";
+import { useQuery } from "@tanstack/react-query";
 
 export default function ProductDetailsScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const product = products.find((p) => p.id === Number(id));
-  if (!product) {
-    return <Text>Product not found</Text>;
+  const {
+    data: product,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["products", id],
+    queryFn: () => getProductById(Number(id)),
+  });
+
+  if (isLoading) {
+    return (
+      <ActivityIndicator
+        size="large"
+        style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+      />
+    );
   }
+
+  if (error) {
+    return <Text>Error: Fetching Products</Text>;
+  }
+
+  // const product = products.find((p) => p.id === Number(id));
+  // if (!product) {
+  //   return <Text>Product not found</Text>;
+  // }
   return (
     <Card className="flex-1 m-1 p-5 rounded-lg overflow-hidden">
       <Stack.Screen

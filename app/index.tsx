@@ -8,15 +8,6 @@ import { useQuery } from "@tanstack/react-query";
 import { ActivityIndicator } from "react-native";
 import { Text } from "react-native";
 
-function LoadingIndicator() {
-  return (
-    <ActivityIndicator
-      size="large"
-      style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-    />
-  );
-}
-
 export default function HomeScreen() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["products"],
@@ -26,7 +17,12 @@ export default function HomeScreen() {
     (useBreakpointValue({ base: 2, md: 3, lg: 4 }) as number) ?? 2;
 
   if (isLoading) {
-    return <LoadingIndicator />;
+    return (
+      <ActivityIndicator
+        size="large"
+        style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+      />
+    );
   }
 
   if (error) {
