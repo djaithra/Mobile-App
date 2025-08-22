@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { useLocalSearchParams } from "expo-router";
 //import products from "@/assets/products.json";
 import { Button, ButtonText } from "@/components/ui/button";

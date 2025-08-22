@@ -5,7 +5,7 @@ import { VStack } from "@/components/ui/vstack";
 import { Image, Pressable } from "react-native";
 import { Card } from "@/components/ui/card";
 import { Heading } from "@/components/ui/heading";
-import React from "react";
+import * as React from "react";
 import INRDisplay from "@/components/INRDisplay";
 import { Link } from "expo-router";
 
