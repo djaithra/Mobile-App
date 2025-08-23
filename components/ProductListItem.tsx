@@ -1,6 +1,6 @@
-import { Button, ButtonText } from "@/components/ui/button"
-import { Box } from "@/components/ui/box"
-import { Text } from "@/components/ui/text"
+import { Button, ButtonText } from "@/components/ui/button";
+import { Box } from "@/components/ui/box";
+import { Text } from "@/components/ui/text";
 import { VStack } from "@/components/ui/vstack";
 import { Image, Pressable } from "react-native";
 import { Card } from "@/components/ui/card";
@@ -8,6 +8,7 @@ import { Heading } from "@/components/ui/heading";
 import * as React from "react";
 import INRDisplay from "@/components/INRDisplay";
 import { Link } from "expo-router";
+import { useAddToCart } from "@/hooks/useAddToCart";
 
 interface Product {
   id: string | number;
@@ -22,6 +23,7 @@ interface ProductListItemProps {
 }
 
 export default function ProductListItem({ product }: ProductListItemProps) {
+  const addToCart = useAddToCart();
   return (
     <Link href={`/product/${product.id}`} asChild>
       <Pressable className="flex-1">
@@ -39,9 +41,7 @@ export default function ProductListItem({ product }: ProductListItemProps) {
             <Heading size="md" className="mb-4">
               {product.name}
             </Heading>
-            <Text size="sm">
-              {product.description}
-            </Text>
+            <Text size="sm">{product.description}</Text>
           </VStack>
           <VStack className="mb-2">
             <Text className="text-sm font-bold mb-2 text-typography-700">
@@ -49,7 +49,10 @@ export default function ProductListItem({ product }: ProductListItemProps) {
             </Text>
           </VStack>
           <Box className="flex-col sm:flex-row">
-            <Button className="px-4 py-2 mr-0 mb-3 sm:mr-3 sm:mb-0 sm:flex-1">
+            <Button
+              onPress={() => addToCart(product)}
+              className="px-4 py-2 mr-0 mb-3 sm:mr-3 sm:mb-0 sm:flex-1"
+            >
               <ButtonText size="sm">Add to cart</ButtonText>
             </Button>
             <Button

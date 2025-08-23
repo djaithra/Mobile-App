@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ActivityIndicator } from "react-native";
 import { Text } from "react-native";
 
+
 export default function HomeScreen() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["products"],

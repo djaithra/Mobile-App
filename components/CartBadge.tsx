@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from "expo-router";
-import { ShoppingBag } from "lucide-react-native";
+import { Italic, ShoppingBag } from "lucide-react-native";
 import useCart from "@/store/cartstore";
 import { Text } from "@/components/ui/text";
 
@@ -11,8 +11,8 @@ export function CartBadge() {
   if (totalCount === 0) return null;
   return (
     <Link href="/cart" className="flex-row gap-2 align-middle">
-      <ShoppingBag />
-      <Text>{totalCount}</Text>
+      <ShoppingBag color="#D4AF37" />
+      <Text style={{ color: "#D4AF37" }}>{totalCount}</Text>
     </Link>
   );
 }

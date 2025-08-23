@@ -4,6 +4,7 @@ import { Stack } from "expo-router";
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CartBadge } from "@/components/CartBadge";
+import { Text } from "react-native";
 
 const queryClient = new QueryClient();
 
@@ -18,11 +19,29 @@ export default function RootLayout() {
         >
           <Stack.Screen
             name="index"
-            options={{ title: "Shop", headerTitleAlign: "center" }}
+            options={{
+              headerTitle: () => (
+                <Text
+                  style={{
+                    fontStyle: "italic",
+                    color: "#D4AF37",
+                    fontSize: 24,
+                    fontWeight: "bold",
+                  }}
+                >
+                  Dhanvi Creations
+                </Text>
+              ),
+
+              headerTitleAlign: "center",
+            }}
           />
           <Stack.Screen
             name="product/[id]"
-            options={{ title: "Product", headerTitleAlign: "center" }}
+            options={{
+              title: "Product",
+              headerTitleAlign: "center",
+            }}
           />
         </Stack>
       </GluestackUIProvider>
