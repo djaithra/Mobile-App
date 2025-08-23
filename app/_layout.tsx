@@ -4,7 +4,7 @@ import { Stack } from "expo-router";
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CartBadge } from "@/components/CartBadge";
-import { Text } from "react-native";
+import { Text, Image, Platform } from "react-native";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +20,27 @@ export default function RootLayout() {
           <Stack.Screen
             name="index"
             options={{
+              headerLeft: () => (
+                <Image
+                  source={require("@/assets/logo.jpg")}
+                  style={Platform.select({
+                    web: {
+                      width: 36,
+                      height: 36,
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                      marginLeft: 8,
+                    },
+                    default: {
+                      width: 32,
+                      height: 32,
+                      borderRadius: 16,  
+                    },
+                  })}
+                  accessibilityLabel="Logo"
+                  alt="Logo"
+                />
+              ),
               headerTitle: () => (
                 <Text
                   style={{
@@ -32,7 +53,6 @@ export default function RootLayout() {
                   Dhanvi Creations
                 </Text>
               ),
-
               headerTitleAlign: "center",
             }}
           />
