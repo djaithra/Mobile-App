@@ -1,28 +1,19 @@
 import * as React from "react";
 import "@/global.css";
-import { Link, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ShoppingBag } from "lucide-react-native";
-import useCart from "@/store/cartstore";
-import { Text } from "@/components/ui/text";
+import { CartBadge } from "@/components/CartBadge";
 
 const queryClient = new QueryClient();
 
 export default function RootLayout() {
-  const cartItems = useCart((state) => state.items.length);
   return (
     <QueryClientProvider client={queryClient}>
       <GluestackUIProvider>
         <Stack
           screenOptions={{
-            headerRight: () =>
-              cartItems > 0 && (
-                <Link href="/cart" className="flex-row gap-2 align-middle">
-                  <ShoppingBag />
-                  <Text>{cartItems}</Text>
-                </Link>
-              ),
+            headerRight: () => <CartBadge />,
           }}
         >
           <Stack.Screen
