@@ -48,7 +48,7 @@ export default function CartScreen() {
               0
             )}
           </Text>
-          <Button onPress={onCheckout}>
+          <Button onPress={onCheckout} style={{ backgroundColor: "#D4AF37" }}>
             <ButtonText>Checkout</ButtonText>
           </Button>
         </Box>

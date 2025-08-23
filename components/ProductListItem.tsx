@@ -56,6 +56,7 @@ export default function ProductListItem({ product }: ProductListItemProps) {
         <Button
           onPress={() => addToCart(product)}
           className="px-4 py-2 mr-0 mb-3 sm:mr-3 sm:mb-0 sm:flex-1"
+          style={{ backgroundColor: "#D4AF37" }}
         >
           <ButtonText size="sm">Add to cart</ButtonText>
         </Button>
