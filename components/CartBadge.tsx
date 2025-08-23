@@ -1,8 +1,9 @@
 import * as React from "react";
 import { Link } from "expo-router";
-import { Italic, ShoppingBag } from "lucide-react-native";
+import { ShoppingBag } from "lucide-react-native";
 import useCart from "@/store/cartstore";
 import { Text } from "@/components/ui/text";
+import { View } from "react-native";
 
 export function CartBadge() {
   const totalCount = useCart((state) =>
@@ -10,9 +11,23 @@ export function CartBadge() {
   );
   if (totalCount === 0) return null;
   return (
-    <Link href="/cart" className="flex-row gap-2 align-middle">
-      <ShoppingBag color="#D4AF37" />
-      <Text style={{ color: "#D4AF37" }}>{totalCount}</Text>
+    <Link
+      href="/cart"
+      style={{ flexDirection: "row", alignItems: "center", gap: 6 }}
+      className="flex-row align-middle"
+    >
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <ShoppingBag color="#D4AF37" />
+        <Text
+          style={{
+            color: "#D4AF37",
+            fontWeight: "bold",
+            fontSize: 10, 
+          }}
+        >
+          {totalCount}
+        </Text>
+      </View>
     </Link>
   );
 }
