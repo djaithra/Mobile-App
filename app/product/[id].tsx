@@ -12,9 +12,15 @@ import INRDisplay from "@/components/INRDisplay";
 import { Stack } from "expo-router";
 import { getProductById } from "@/api/product";
 import { useQuery } from "@tanstack/react-query";
+import useCart from "@/store/cartstore";
 
 export default function ProductDetailsScreen() {
+  const addProduct = useCart((state) => state.addItem);
   const { id } = useLocalSearchParams<{ id: string }>();
+
+  const cartItems = useCart((state) => state.items);
+  console.log("Cart Items:", JSON.stringify(cartItems));
+
   const {
     data: product,
     isLoading,
@@ -36,6 +42,12 @@ export default function ProductDetailsScreen() {
   if (error) {
     return <Text>Error: Fetching Products</Text>;
   }
+
+  const addToCart = () => {
+    if (product) {
+      addProduct(product);
+    }
+  };
 
   // const product = products.find((p) => p.id === Number(id));
   // if (!product) {
@@ -67,7 +79,10 @@ export default function ProductDetailsScreen() {
         </Text>
       </VStack>
       <Box className="flex-col sm:flex-row">
-        <Button className="px-4 py-2 mr-0 mb-3 sm:mr-3 sm:mb-0 sm:flex-1">
+        <Button
+          onPress={addToCart}
+          className="px-4 py-2 mr-0 mb-3 sm:mr-3 sm:mb-0 sm:flex-1"
+        >
           <ButtonText size="sm">Add to cart</ButtonText>
         </Button>
         <Button
