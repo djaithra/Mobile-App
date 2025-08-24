@@ -2,6 +2,7 @@
 import React from "react";
 import { Text } from "@/components/ui/text";
 import { Box } from "@/components/ui/box";
+import { LucideHome, SettingsIcon, User2Icon } from "lucide-react-native";
 import {
   SafeAreaView,
   useSafeAreaInsets,
@@ -20,9 +21,19 @@ const Footer = () => {
         justifyContent: "center",
       }}
     >
-      <Text size="xs" style={{ color: "#D4AF37", fontSize: 11 }}>
-        © {new Date().getFullYear()} Dhanvi Creations. All rights reserved.
-      </Text>
+      <Box
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: 32,
+          marginBottom: 4,
+        }}
+      >
+        <LucideHome size={24} color="#D4AF37" />
+        <SettingsIcon size={24} color="#D4AF37" />
+        <User2Icon size={24} color="#D4AF37" />
+      </Box>
     </SafeAreaView>
   );
 };

@@ -76,7 +76,7 @@ export default function RootLayout() {
               }}
             />
           </Stack>
-          <Footer />
+          {Platform.OS !== "web" && <Footer />}
         </Box>
       </GluestackUIProvider>
     </QueryClientProvider>
