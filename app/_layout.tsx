@@ -17,7 +17,16 @@ export default function RootLayout() {
         <Box style={{ flex: 1, position: "relative" }}>
           <Stack
             screenOptions={{
-              headerRight: () => <CartBadge />,
+              headerRight: () => (
+                <Box
+                  style={Platform.select({
+                    web: { marginRight: 18 },
+                    default: {},
+                  })}
+                >
+                  <CartBadge />
+                </Box>
+              ),
             }}
           >
             <Stack.Screen
