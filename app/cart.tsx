@@ -26,33 +26,39 @@ export default function CartScreen() {
     return <Redirect href={"/"} />;
   }
   return (
-    <FlatList
-      contentContainerClassName="gap-2 w-full mx-auto"
-      data={cartItems}
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={({ item }: { item: Product }) => (
-        <HStack className="bg-white p-2">
-          <VStack>
-            <Text bold>{item.name}</Text>
-            <Text>{item.price}</Text>
-          </VStack>
-          <Text className="ml-auto">{item.quantity}</Text>
-        </HStack>
-      )}
-      ListFooterComponent={() => (
-        <Box>
-          <Text>
-            Total:{" "}
-            {cartItems.reduce(
-              (acc, item) => acc + item.price * item.quantity,
-              0
-            )}
-          </Text>
-          <Button onPress={onCheckout} style={{ backgroundColor: "#D4AF37" }}>
-            <ButtonText>Checkout</ButtonText>
-          </Button>
-        </Box>
-      )}
-    />
+    <Box style={{ flex: 1, backgroundColor: "#fff" }}>
+      <Box style={{ flex: 1 }}>
+        <FlatList
+          contentContainerClassName="gap-2 w-full mx-auto"
+          data={cartItems}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }: { item: Product }) => (
+            <HStack className="bg-white p-2">
+              <VStack>
+                <Text bold>{item.name}</Text>
+                <Text>{item.price}</Text>
+              </VStack>
+              <Text className="ml-auto">{item.quantity}</Text>
+            </HStack>
+          )}
+        />
+      </Box>
+      <Box
+        style={{
+          padding: 16,
+          borderTopWidth: 1,
+          borderColor: "#eee",
+          backgroundColor: "#fff",
+        }}
+      >
+        <Text style={{ marginBottom: 8 }}>
+          Total:{" "}
+          {cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0)}
+        </Text>
+        <Button onPress={onCheckout} style={{ backgroundColor: "#D4AF37" }}>
+          <ButtonText>Checkout</ButtonText>
+        </Button>
+      </Box>
+    </Box>
   );
 }
