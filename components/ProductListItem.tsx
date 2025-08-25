@@ -26,9 +26,9 @@ export default function ProductListItem({ product }: ProductListItemProps) {
   const addToCart = useAddToCart();
   return (
     <Box className="flex-1 m-1">
-      <Link href={`/product/${product.id}`} asChild>
-        <Pressable className="flex-1">
-          <Card className="flex-1 p-5 rounded-lg overflow-hidden">
+      <Card className="flex-1 p-5 rounded-lg overflow-hidden">
+        <Link href={`/product/${product.id}`} asChild>
+          <Pressable className="flex-1">
             <Image
               source={{ uri: product.image }}
               className="mb-6 h-[240px] w-full rounded-md"
@@ -49,26 +49,26 @@ export default function ProductListItem({ product }: ProductListItemProps) {
                 <INRDisplay amount={product.price} />
               </Text>
             </VStack>
-          </Card>
-        </Pressable>
-      </Link>
-      <Box className="flex-col sm:flex-row mt-2">
-        <Button
-          onPress={() => addToCart(product)}
-          className="px-4 py-2 mr-0 mb-3 sm:mr-3 sm:mb-0 sm:flex-1"
-          style={{ backgroundColor: "#D4AF37" }}
-        >
-          <ButtonText size="sm">Add to cart</ButtonText>
-        </Button>
-        <Button
-          variant="outline"
-          className="px-4 py-2 border-outline-300 sm:flex-1"
-        >
-          <ButtonText size="sm" className="text-typography-600">
-            Wishlist
-          </ButtonText>
-        </Button>
-      </Box>
+          </Pressable>
+        </Link>
+        <Box className="flex-col sm:flex-row mt-2">
+          <Button
+            onPress={() => addToCart(product)}
+            className="px-4 py-2 mr-0 mb-3 sm:mr-3 sm:mb-0 sm:flex-1"
+            style={{ backgroundColor: "#D4AF37" }}
+          >
+            <ButtonText size="sm">Add to cart</ButtonText>
+          </Button>
+          <Button
+            variant="outline"
+            className="px-4 py-2 border-outline-300 sm:flex-1"
+          >
+            <ButtonText size="sm" className="text-typography-600">
+              Wishlist
+            </ButtonText>
+          </Button>
+        </Box>
+      </Card>
     </Box>
   );
 }
