@@ -1,6 +1,6 @@
 import * as React from "react";
 import "@/global.css";
-import { Stack } from "expo-router";
+import { Stack, usePathname } from "expo-router";
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CartBadge } from "@/components/CartBadge";
@@ -11,22 +11,30 @@ import { Box } from "@/components/ui/box";
 const queryClient = new QueryClient();
 
 export default function RootLayout() {
+  const pathname = usePathname();
   return (
     <QueryClientProvider client={queryClient}>
       <GluestackUIProvider>
         <Box style={{ flex: 1, position: "relative" }}>
           <Stack
             screenOptions={{
-              headerRight: () => (
-                <Box
-                  style={Platform.select({
-                    web: { marginRight: 18 },
-                    default: {},
-                  })}
-                >
-                  <CartBadge />
-                </Box>
-              ),
+              headerBackVisible: false,
+              headerRight: () => {
+                // Show CartBadge only on home and product/[id] screens
+                if (pathname === "/" || pathname.startsWith("/product/")) {
+                  return (
+                    <Box
+                      style={Platform.select({
+                        web: { marginRight: 18 },
+                        default: {},
+                      })}
+                    >
+                      <CartBadge />
+                    </Box>
+                  );
+                }
+                return null;
+              },
             }}
           >
             <Stack.Screen
