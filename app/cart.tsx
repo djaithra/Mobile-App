@@ -1,5 +1,6 @@
 import useCart from "@/store/cartstore";
 import { FlatList } from "react-native";
+import { Image } from "@/components/ui/image";
 import React from "react";
 import { Text } from "@/components/ui/text";
 import { HStack } from "@/components/ui/hstack";
@@ -7,6 +8,7 @@ import { VStack } from "@/components/ui/vstack";
 import { Button, ButtonText } from "@/components/ui/button";
 import { Box } from "@/components/ui/box";
 import { Redirect } from "expo-router";
+import { Bold } from "lucide-react-native";
 
 interface Product {
   id: number;
@@ -31,11 +33,36 @@ export default function CartScreen() {
         <FlatList
           contentContainerClassName="gap-2 w-full mx-auto"
           data={cartItems}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item: Product) => item.id.toString()}
           renderItem={({ item }: { item: Product }) => (
-            <HStack className="bg-white p-2">
-              <VStack>
-                <Text bold>{item.name}</Text>
+            <HStack className="bg-white p-2 items-center">
+              {item.image && (
+                <Box
+                  style={{
+                    width: 56,
+                    height: 56,
+                    marginRight: 16,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "white",
+                    borderRadius: 10,
+                    overflow: "hidden",
+                  }}
+                >
+                  <Image
+                    source={{ uri: item.image }}
+                    width={52}
+                    height={52}
+                    borderRadius={8}
+                    resizeMode="contain"
+                    alt={item.name || "Product image"}
+                  />
+                </Box>
+              )}
+              <VStack style={{ flex: 1, minWidth: 0 }}>
+                <Text bold numberOfLines={1} ellipsizeMode="tail">
+                  {item.name}
+                </Text>
                 <Text>{item.price}</Text>
               </VStack>
               <Text className="ml-auto">{item.quantity}</Text>
@@ -51,7 +78,7 @@ export default function CartScreen() {
           backgroundColor: "#fff",
         }}
       >
-        <Text style={{ marginBottom: 8 }}>
+        <Text style={{ marginBottom: 8, fontWeight: "bold", fontSize: 16 }}>
           Total:{" "}
           {cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0)}
         </Text>
