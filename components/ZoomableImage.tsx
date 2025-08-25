@@ -1,5 +1,5 @@
 import React from "react";
-import { Image } from "react-native";
+import { Image, useWindowDimensions } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
   useAnimatedStyle,
@@ -16,7 +16,7 @@ const ZoomableImage: React.FC<ZoomableImageProps> = ({ uri }) => {
   const translateY = useSharedValue(0);
   const lastTranslateX = useSharedValue(0);
   const lastTranslateY = useSharedValue(0);
-  const containerWidth = 320; // or useWindowDimensions().width for responsive
+  const { width: containerWidth } = useWindowDimensions();
   const containerHeight = 240;
 
   const pinchGesture = Gesture.Pinch().onUpdate((e) => {

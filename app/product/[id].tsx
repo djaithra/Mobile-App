@@ -1,4 +1,3 @@
-//"use client";
 import * as React from "react";
 import { useLocalSearchParams } from "expo-router";
 import { Button, ButtonText } from "@/components/ui/button";
