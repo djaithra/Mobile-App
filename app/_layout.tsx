@@ -19,6 +19,7 @@ export default function RootLayout() {
           <Stack
             screenOptions={{
               headerBackVisible: false,
+              headerLeft: () => undefined,
               headerRight: () => {
                 // Show CartBadge only on home and product/[id] screens
                 if (pathname === "/" || pathname.startsWith("/product/")) {
