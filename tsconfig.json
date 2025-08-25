@@ -1,5 +1,4 @@
 {
-  "extends": "expo/tsconfig.base.json",
   "compilerOptions": {
     "jsx": "react",
     "strict": true,
@@ -11,5 +10,6 @@
         "./tailwind.config.js"
       ]
     }
-  }
+  },
+  "extends": "expo/tsconfig.base"
 }
