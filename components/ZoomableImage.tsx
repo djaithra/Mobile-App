@@ -65,6 +65,7 @@ const ZoomableImage: React.FC<ZoomableImageProps> = ({
   return (
     <GestureDetector gesture={composed}>
       <Animated.View
+        pointerEvents="box-none"
         style={{
           width: containerWidth,
           height: containerHeight,
