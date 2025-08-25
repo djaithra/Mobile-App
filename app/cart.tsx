@@ -1,6 +1,6 @@
 import useCart from "@/store/cartstore";
 import { FlatList } from "react-native";
-import { Image } from "@/components/ui/image";
+import { Image, Platform } from "react-native";
 import React from "react";
 import { Text } from "@/components/ui/text";
 import { HStack } from "@/components/ui/hstack";
@@ -8,7 +8,6 @@ import { VStack } from "@/components/ui/vstack";
 import { Button, ButtonText } from "@/components/ui/button";
 import { Box } from "@/components/ui/box";
 import { Redirect } from "expo-router";
-import { Bold } from "lucide-react-native";
 
 interface Product {
   id: number;
@@ -50,12 +49,16 @@ export default function CartScreen() {
                   }}
                 >
                   <Image
-                    source={{ uri: item.image }}
-                    width={52}
-                    height={52}
-                    borderRadius={8}
+                    source={
+                      Platform.OS === "web"
+                        ? { uri: item.image }
+                        : typeof item.image === "string"
+                        ? { uri: item.image }
+                        : item.image
+                    }
+                    style={{ width: 52, height: 52, borderRadius: 8 }}
                     resizeMode="contain"
-                    alt={item.name || "Product image"}
+                    accessibilityLabel={item.name || "Product image"}
                   />
                 </Box>
               )}
