@@ -75,6 +75,24 @@ export default function RootLayout() {
                 headerTitleAlign: "center",
               }}
             />
+            <Stack.Screen
+              name="cart"
+              options={{
+                headerTitle: () => (
+                  <Text
+                    style={{
+                      fontStyle: "italic",
+                      color: "#D4AF37",
+                      fontSize: 24,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Shopping Bag
+                  </Text>
+                ),
+                headerTitleAlign: "center",
+              }}
+            />
           </Stack>
           {Platform.OS !== "web" && <Footer />}
         </Box>
