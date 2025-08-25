@@ -1,6 +1,6 @@
+//"use client";
 import * as React from "react";
 import { useLocalSearchParams } from "expo-router";
-//import products from "@/assets/products.json";
 import { Button, ButtonText } from "@/components/ui/button";
 import { Box } from "@/components/ui/box";
 import { Text } from "@/components/ui/text";
@@ -14,6 +14,7 @@ import { getProductById } from "@/api/product";
 import { useQuery } from "@tanstack/react-query";
 import useCart from "@/store/cartstore";
 import { useAddToCart } from "@/hooks/useAddToCart";
+import ZoomableImage from "@/components/ZoomableImage";
 
 export default function ProductDetailsScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -38,8 +39,8 @@ export default function ProductDetailsScreen() {
     );
   }
 
-  if (error) {
-    return <Text>Error: Fetching Products</Text>;
+  if (error || !product) {
+    return <Text>Error: Fetching Product</Text>;
   }
 
   return (
@@ -47,26 +48,26 @@ export default function ProductDetailsScreen() {
       <Stack.Screen
         options={{ title: product.name, headerTitleAlign: "center" }}
       />
-      <Image
-        source={{ uri: product.image }}
-        className="mb-6 h-[240px] w-full rounded-md"
-        alt={`${product.name} image`}
-        resizeMode="contain"
-      />
+
+      {/* Product Image */}
+      <ZoomableImage uri={product.image} />
       <Text className="text-sm font-normal mb-2 text-typography-700">
         Electronics Items
       </Text>
+
       <VStack className="mb-6">
         <Heading size="md" className="mb-4">
           {product.name}
         </Heading>
         <Text size="sm">{product.description}</Text>
       </VStack>
+
       <VStack className="mb-2">
         <Text className="text-sm font-bold mb-2 text-typography-700">
           <INRDisplay amount={product.price} />
         </Text>
       </VStack>
+
       <Box className="flex-col sm:flex-row">
         <Button
           onPress={() => addToCart(product)}
