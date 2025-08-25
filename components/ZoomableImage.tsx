@@ -8,16 +8,23 @@ import Animated, {
 
 type ZoomableImageProps = {
   uri: string;
+  height?: number;
+  width?: number | string;
 };
 
-const ZoomableImage: React.FC<ZoomableImageProps> = ({ uri }) => {
+const ZoomableImage: React.FC<ZoomableImageProps> = ({
+  uri,
+  height,
+  width,
+}) => {
   const scale = useSharedValue(1);
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
   const lastTranslateX = useSharedValue(0);
   const lastTranslateY = useSharedValue(0);
-  const { width: containerWidth } = useWindowDimensions();
-  const containerHeight = 240;
+  const window = useWindowDimensions();
+  const containerWidth = typeof width === "number" ? width : window.width;
+  const containerHeight = height ?? 240;
 
   const pinchGesture = Gesture.Pinch().onUpdate((e) => {
     scale.value = e.scale;
