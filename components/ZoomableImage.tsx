@@ -16,6 +16,8 @@ const ZoomableImage: React.FC<ZoomableImageProps> = ({ uri }) => {
   const translateY = useSharedValue(0);
   const lastTranslateX = useSharedValue(0);
   const lastTranslateY = useSharedValue(0);
+  const containerWidth = 320; // or useWindowDimensions().width for responsive
+  const containerHeight = 240;
 
   const pinchGesture = Gesture.Pinch().onUpdate((e) => {
     scale.value = e.scale;
@@ -24,8 +26,18 @@ const ZoomableImage: React.FC<ZoomableImageProps> = ({ uri }) => {
   const panGesture = Gesture.Pan()
     .onUpdate((e) => {
       if (scale.value > 1) {
-        translateX.value = lastTranslateX.value + e.translationX;
-        translateY.value = lastTranslateY.value + e.translationY;
+        // Calculate max pan based on scale
+        const scaledWidth = containerWidth * scale.value;
+        const scaledHeight = containerHeight * scale.value;
+        const maxX = Math.max(0, (scaledWidth - containerWidth) / 2);
+        const maxY = Math.max(0, (scaledHeight - containerHeight) / 2);
+        let nextX = lastTranslateX.value + e.translationX;
+        let nextY = lastTranslateY.value + e.translationY;
+        // Clamp
+        nextX = Math.max(-maxX, Math.min(maxX, nextX));
+        nextY = Math.max(-maxY, Math.min(maxY, nextY));
+        translateX.value = nextX;
+        translateY.value = nextY;
       }
     })
     .onEnd(() => {
@@ -45,10 +57,24 @@ const ZoomableImage: React.FC<ZoomableImageProps> = ({ uri }) => {
 
   return (
     <GestureDetector gesture={composed}>
-      <Animated.View style={[{ width: "100%", height: 240 }, animatedStyle]}>
-        <Image
+      <Animated.View
+        style={{
+          width: containerWidth,
+          height: containerHeight,
+          alignSelf: "center",
+          borderRadius: 8,
+          overflow: "hidden",
+          backgroundColor: "transparent",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Animated.Image
           source={{ uri }}
-          style={{ width: "100%", height: "100%", borderRadius: 8 }}
+          style={[
+            { width: "100%", height: "100%", borderRadius: 8 },
+            animatedStyle,
+          ]}
           resizeMode="contain"
         />
       </Animated.View>
