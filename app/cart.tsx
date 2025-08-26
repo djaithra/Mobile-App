@@ -1,5 +1,5 @@
 import useCart from "@/store/cartstore";
-import { FlatList } from "react-native";
+import { FlatList, Pressable } from "react-native";
 import { Image, Platform } from "react-native";
 import React from "react";
 import { Text } from "@/components/ui/text";
@@ -92,9 +92,15 @@ export default function CartScreen() {
             .reduce((acc, item) => acc + item.price * item.quantity, 0)
             .toFixed(2)}
         </Text>
-        <Button onPress={onCheckout} className="bg-[#D4AF37] rounded-md">
-          <ButtonText>Checkout</ButtonText>
-        </Button>
+        <Pressable>
+          <Button
+            onPress={onCheckout}
+            className="bg-[#D4AF37] rounded-md"
+            style={{ backgroundColor: "#D4AF37", borderRadius: 8 }}
+          >
+            <ButtonText>Checkout</ButtonText>
+          </Button>
+        </Pressable>
       </Box>
     </Box>
   );
