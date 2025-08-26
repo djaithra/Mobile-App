@@ -28,7 +28,7 @@ export default function ProductListItem({ product }: ProductListItemProps) {
     <Box className="flex-1 m-1">
       <Card className="flex-1 p-5 rounded-lg overflow-hidden">
         <Link href={`/product/${product.id}`} asChild>
-          <Pressable className="flex-1">
+          <Pressable>
             <Image
               source={{ uri: product.image }}
               className="mb-6 h-[240px] w-full rounded-md"
