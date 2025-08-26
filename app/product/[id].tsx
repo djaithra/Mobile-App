@@ -192,7 +192,7 @@ export default function ProductPage() {
               style={{ backgroundColor: "#D4AF37", flex: 1 }}
               accessibilityRole="button"
             >
-              <ButtonText size="sm">Add to cart</ButtonText>
+              <ButtonText size="sm">Add to Cart</ButtonText>
             </Button>
             <Button
               variant="outline"

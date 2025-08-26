@@ -6,7 +6,6 @@ import { Image, Pressable } from "react-native";
 import { Card } from "@/components/ui/card";
 import { Heading } from "@/components/ui/heading";
 import * as React from "react";
-import INRDisplay from "@/components/INRDisplay";
 import { Link } from "expo-router";
 import { useAddToCart } from "@/hooks/useAddToCart";
 
@@ -46,7 +45,7 @@ export default function ProductListItem({ product }: ProductListItemProps) {
             </VStack>
             <VStack className="mb-2">
               <Text className="text-sm font-bold mb-2 text-typography-700">
-                <INRDisplay amount={product.price} />
+                Amount: ₹{product.price}
               </Text>
             </VStack>
           </Pressable>
@@ -57,7 +56,7 @@ export default function ProductListItem({ product }: ProductListItemProps) {
             className="px-4 py-2 mr-0 mb-3 sm:mr-3 sm:mb-0 sm:flex-1"
             style={{ backgroundColor: "#D4AF37" }}
           >
-            <ButtonText size="sm">Add to cart</ButtonText>
+            <ButtonText size="sm">Add to Cart</ButtonText>
           </Button>
           <Button
             variant="outline"
