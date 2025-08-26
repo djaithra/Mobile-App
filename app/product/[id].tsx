@@ -60,6 +60,7 @@ export default function ProductPage() {
           position: "relative",
           minHeight: 0,
         }}
+        pointerEvents="box-none"
       >
         {/* Product Image and Details Column */}
         <Box
@@ -76,7 +77,7 @@ export default function ProductPage() {
               width: isWide ? 400 : window.width,
               justifyContent: "center",
               alignItems: "center",
-              marginBottom: isWide ? 0 : 12,
+              marginBottom: isWide ? 0 : 110,
               marginRight: isWide ? 32 : 0,
               flexShrink: 0,
             }}
@@ -140,66 +141,71 @@ export default function ProductPage() {
               </Box>
             </Box>
           ) : (
-            <ScrollView
-              contentContainerStyle={{ flexGrow: 1, paddingBottom: 110 }}
-              showsVerticalScrollIndicator={false}
-              horizontal={false}
+            <Box
+              style={{
+                flex: 1,
+                minWidth: 0,
+                flexDirection: "column",
+                justifyContent: "flex-start",
+                paddingBottom: 80,
+              }}
             >
-              <Box style={{ flexGrow: 1 }}>
-                <Text className="text-sm font-normal mb-2 text-typography-700">
-                  Electronics Items
+              <Text className="text-sm font-normal mb-2 text-typography-700">
+                Electronics Items
+              </Text>
+              <VStack className="mb-6">
+                <Heading size="md" className="mb-4">
+                  {product.name}
+                </Heading>
+                <Text size="sm">{product.description}</Text>
+              </VStack>
+              <VStack className="mb-2">
+                <Text className="text-sm font-bold mb-2 text-typography-700">
+                  <INRDisplay amount={product.price} />
                 </Text>
-                <VStack className="mb-6">
-                  <Heading size="md" className="mb-4">
-                    {product.name}
-                  </Heading>
-                  <Text size="sm">{product.description}</Text>
-                </VStack>
-                <VStack className="mb-2">
-                  <Text className="text-sm font-bold mb-2 text-typography-700">
-                    <INRDisplay amount={product.price} />
-                  </Text>
-                </VStack>
-              </Box>
-            </ScrollView>
+              </VStack>
+            </Box>
           )}
         </Box>
-        {/* ...existing code... */}
+        {/* Fixed bottom buttons for mobile only, outside main Box for true overlay */}
+        {!isWide && (
+          <Box
+            style={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: "#fff",
+              paddingVertical: 8,
+              paddingHorizontal: 8,
+              flexDirection: "row",
+              gap: 12,
+              zIndex: 9999,
+              width: "100%",
+              borderTopWidth: 1,
+              borderColor: "#eee",
+            }}
+            pointerEvents="auto"
+          >
+            <Button
+              onPress={() => addToCart(product)}
+              style={{ backgroundColor: "#D4AF37", flex: 1 }}
+              accessibilityRole="button"
+            >
+              <ButtonText size="sm">Add to cart</ButtonText>
+            </Button>
+            <Button
+              variant="outline"
+              style={{ flex: 1 }}
+              accessibilityRole="button"
+            >
+              <ButtonText size="sm" className="text-typography-600">
+                Wishlist
+              </ButtonText>
+            </Button>
+          </Box>
+        )}
       </Box>
-      {/* Fixed bottom buttons for mobile only, outside main Box for true overlay */}
-      {!isWide && (
-        <Box
-          style={{
-            position: "absolute",
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: "#fff",
-            padding: 16,
-            flexDirection: "row",
-            gap: 12,
-            zIndex: 100,
-            width: window.width,
-          }}
-        >
-          <Button
-            onPress={() => addToCart(product)}
-            style={{ backgroundColor: "#D4AF37", flex: 1 }}
-            accessibilityRole="button"
-          >
-            <ButtonText size="sm">Add to cart</ButtonText>
-          </Button>
-          <Button
-            variant="outline"
-            style={{ flex: 1 }}
-            accessibilityRole="button"
-          >
-            <ButtonText size="sm" className="text-typography-600">
-              Wishlist
-            </ButtonText>
-          </Button>
-        </Box>
-      )}
     </Card>
   );
 }

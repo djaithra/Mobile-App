@@ -51,7 +51,7 @@ export default function ProductListItem({ product }: ProductListItemProps) {
             </VStack>
           </Pressable>
         </Link>
-        <Box className="flex-col sm:flex-row mt-2">
+        <Box className="flex-col sm:flex-row mt-2" pointerEvents="auto">
           <Button
             onPress={() => addToCart(product)}
             className="px-4 py-2 mr-0 mb-3 sm:mr-3 sm:mb-0 sm:flex-1"
