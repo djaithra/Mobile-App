@@ -28,7 +28,7 @@ export default function CartScreen() {
   }
   return (
     <Box style={{ flex: 1, backgroundColor: "#fff" }}>
-      <Box style={{ flex: 1 }}>
+      <Box style={{ flex: 1, paddingBottom: 88 }}>
         <FlatList
           contentContainerClassName="gap-2 w-full mx-auto"
           data={cartItems}
@@ -66,24 +66,31 @@ export default function CartScreen() {
                 <Text bold numberOfLines={1} ellipsizeMode="tail">
                   {item.name}
                 </Text>
-                <Text>{item.price}</Text>
+                <Text>₹{item.price}</Text>
               </VStack>
-              <Text className="ml-auto">{item.quantity}</Text>
+              <Text className="ml-auto font-bold">{item.quantity}</Text>
             </HStack>
           )}
         />
       </Box>
       <Box
         style={{
-          padding: 16,
+          position: "absolute",
+          left: 0,
+          right: 0,
+          bottom: 0,
+          padding: 8,
           borderTopWidth: 1,
           borderColor: "#eee",
           backgroundColor: "#fff",
+          zIndex: 999,
         }}
       >
         <Text style={{ marginBottom: 8, fontWeight: "bold", fontSize: 16 }}>
-          Total:{" "}
-          {cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0)}
+          Total: ₹
+          {cartItems
+            .reduce((acc, item) => acc + item.price * item.quantity, 0)
+            .toFixed(2)}
         </Text>
         <Button onPress={onCheckout} style={{ backgroundColor: "#D4AF37" }}>
           <ButtonText>Checkout</ButtonText>
