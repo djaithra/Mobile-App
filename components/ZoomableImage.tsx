@@ -52,7 +52,16 @@ const ZoomableImage: React.FC<ZoomableImageProps> = ({
       lastTranslateY.value = translateY.value;
     });
 
-  const composed = Gesture.Simultaneous(pinchGesture, panGesture);
+  // Tap gesture to reset zoom and pan
+  const tapGesture = Gesture.Tap().onEnd(() => {
+    scale.value = 1;
+    translateX.value = 0;
+    translateY.value = 0;
+    lastTranslateX.value = 0;
+    lastTranslateY.value = 0;
+  });
+
+  const composed = Gesture.Simultaneous(pinchGesture, panGesture, tapGesture);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [
