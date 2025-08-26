@@ -164,42 +164,42 @@ export default function ProductPage() {
             </ScrollView>
           )}
         </Box>
-        {/* Fixed bottom buttons for mobile only */}
-        {!isWide && (
-          <Box
-            style={{
-              position: "absolute",
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundColor: "#fff",
-              padding: 16,
-              flexDirection: "row",
-              gap: 12,
-              zIndex: 10,
-            }}
-          >
-            <Button
-              onPress={() => addToCart(product)}
-              className="px-4 py-2 sm:mr-3 sm:flex-1"
-              style={{ backgroundColor: "#D4AF37", flex: 1 }}
-              accessibilityRole="button"
-            >
-              <ButtonText size="sm">Add to cart</ButtonText>
-            </Button>
-            <Button
-              variant="outline"
-              className="px-4 py-2 border-outline-300 sm:flex-1"
-              style={{ flex: 1 }}
-              accessibilityRole="button"
-            >
-              <ButtonText size="sm" className="text-typography-600">
-                Wishlist
-              </ButtonText>
-            </Button>
-          </Box>
-        )}
+        {/* ...existing code... */}
       </Box>
+      {/* Fixed bottom buttons for mobile only, outside main Box for true overlay */}
+      {!isWide && (
+        <Box
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "#fff",
+            padding: 16,
+            flexDirection: "row",
+            gap: 12,
+            zIndex: 100,
+            width: window.width,
+          }}
+        >
+          <Button
+            onPress={() => addToCart(product)}
+            style={{ backgroundColor: "#D4AF37", flex: 1 }}
+            accessibilityRole="button"
+          >
+            <ButtonText size="sm">Add to cart</ButtonText>
+          </Button>
+          <Button
+            variant="outline"
+            style={{ flex: 1 }}
+            accessibilityRole="button"
+          >
+            <ButtonText size="sm" className="text-typography-600">
+              Wishlist
+            </ButtonText>
+          </Button>
+        </Box>
+      )}
     </Card>
   );
 }
