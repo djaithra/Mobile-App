@@ -92,7 +92,7 @@ export default function CartScreen() {
             .reduce((acc, item) => acc + item.price * item.quantity, 0)
             .toFixed(2)}
         </Text>
-        <Button onPress={onCheckout} style={{ backgroundColor: "#D4AF37" }}>
+        <Button onPress={onCheckout} className="bg-[#D4AF37] rounded-md">
           <ButtonText>Checkout</ButtonText>
         </Button>
       </Box>

@@ -189,14 +189,16 @@ export default function ProductPage() {
           >
             <Button
               onPress={() => addToCart(product)}
-              style={{ backgroundColor: "#D4AF37", flex: 1 }}
+              className="bg-[#D4AF37] px-4 py-2 mr-0 mb-3 sm:mr-3 sm:mb-0 flex-1 rounded-md"
+              //style={{ backgroundColor: "#D4AF37", flex: 1, borderRadius: 8 }}
               accessibilityRole="button"
             >
               <ButtonText size="sm">Add to Cart</ButtonText>
             </Button>
             <Button
               variant="outline"
-              style={{ flex: 1 }}
+              className="px-4 py-2 mr-0 mb-3 sm:mr-3 sm:mb-0 flex-1 rounded-md"
+              //style={{ flex: 1, borderRadius: 8 }}
               accessibilityRole="button"
             >
               <ButtonText size="sm" className="text-typography-600">
