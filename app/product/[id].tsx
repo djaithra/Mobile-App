@@ -5,7 +5,6 @@ import { Text } from "@/components/ui/text";
 import { VStack } from "@/components/ui/vstack";
 import {
   ActivityIndicator,
-  Image,
   useWindowDimensions,
   ScrollView,
   Platform,
@@ -18,7 +17,6 @@ import { getProductById } from "@/api/product";
 import { useQuery } from "@tanstack/react-query";
 import useCart from "@/store/cartstore";
 import { useAddToCart } from "@/hooks/useAddToCart";
-
 import ZoomableImage from "@/components/ZoomableImage";
 
 export default function ProductPage() {
@@ -63,14 +61,13 @@ export default function ProductPage() {
           minHeight: 0,
         }}
       >
-        <ScrollView
-          contentContainerStyle={{
-            paddingBottom: isWide ? 24 : 110,
+        {/* Product Image and Details Column */}
+        <Box
+          style={{
             flexDirection: isWide ? "row" : "column",
-            alignItems: isWide ? "flex-start" : "stretch",
+            flex: 1,
+            minWidth: 0,
           }}
-          showsVerticalScrollIndicator={false}
-          horizontal={false}
         >
           {/* Product Image */}
           <Box
@@ -90,44 +87,42 @@ export default function ProductPage() {
               width={isWide ? 400 : window.width}
             />
           </Box>
-          <Box
-            style={{
-              flex: 1,
-              minWidth: 0,
-              flexDirection: "column",
-              justifyContent: isWide ? "space-between" : undefined,
-            }}
-          >
-            <Box>
-              <Text className="text-sm font-normal mb-2 text-typography-700">
-                Electronics Items
-              </Text>
-              <VStack className="mb-6">
-                <Heading size="md" className="mb-4">
-                  {product.name}
-                </Heading>
-                <Text size="sm">{product.description}</Text>
-              </VStack>
-              <VStack className="mb-2">
-                <Text className="text-sm font-bold mb-2 text-typography-700">
-                  <INRDisplay amount={product.price} />
+          {/* Details Column */}
+          {isWide ? (
+            <Box
+              style={{
+                flex: 1,
+                minWidth: 0,
+                flexDirection: "column",
+                justifyContent: "flex-end",
+              }}
+            >
+              <Box style={{ flexGrow: 1 }}>
+                <Text className="text-sm font-normal mb-2 text-typography-700">
+                  Electronics Items
                 </Text>
-              </VStack>
-            </Box>
-            {isWide && (
+                <VStack className="mb-6">
+                  <Heading size="md" className="mb-4">
+                    {product.name}
+                  </Heading>
+                  <Text size="sm">{product.description}</Text>
+                </VStack>
+                <VStack className="mb-2">
+                  <Text className="text-sm font-bold mb-2 text-typography-700">
+                    <INRDisplay amount={product.price} />
+                  </Text>
+                </VStack>
+              </Box>
               <Box
                 style={{
                   flexDirection: "row",
-                  gap: 12,
+                  gap: 16,
                   marginTop: 24,
-                  maxWidth: 400,
-                  alignSelf: "flex-start",
                   width: "100%",
                 }}
               >
                 <Button
                   onPress={() => addToCart(product)}
-                  className="px-4 py-2 sm:mr-3 sm:flex-1"
                   style={{ backgroundColor: "#D4AF37", flex: 1 }}
                   accessibilityRole="button"
                 >
@@ -135,7 +130,6 @@ export default function ProductPage() {
                 </Button>
                 <Button
                   variant="outline"
-                  className="px-4 py-2 border-outline-300 sm:flex-1"
                   style={{ flex: 1 }}
                   accessibilityRole="button"
                 >
@@ -144,9 +138,32 @@ export default function ProductPage() {
                   </ButtonText>
                 </Button>
               </Box>
-            )}
-          </Box>
-        </ScrollView>
+            </Box>
+          ) : (
+            <ScrollView
+              contentContainerStyle={{ flexGrow: 1, paddingBottom: 110 }}
+              showsVerticalScrollIndicator={false}
+              horizontal={false}
+            >
+              <Box style={{ flexGrow: 1 }}>
+                <Text className="text-sm font-normal mb-2 text-typography-700">
+                  Electronics Items
+                </Text>
+                <VStack className="mb-6">
+                  <Heading size="md" className="mb-4">
+                    {product.name}
+                  </Heading>
+                  <Text size="sm">{product.description}</Text>
+                </VStack>
+                <VStack className="mb-2">
+                  <Text className="text-sm font-bold mb-2 text-typography-700">
+                    <INRDisplay amount={product.price} />
+                  </Text>
+                </VStack>
+              </Box>
+            </ScrollView>
+          )}
+        </Box>
         {/* Fixed bottom buttons for mobile only */}
         {!isWide && (
           <Box
@@ -159,8 +176,6 @@ export default function ProductPage() {
               padding: 16,
               flexDirection: "row",
               gap: 12,
-              borderTopWidth: 1,
-              borderColor: "#eee",
               zIndex: 10,
             }}
           >
