@@ -25,31 +25,41 @@ export default function ProductListItem({ product }: ProductListItemProps) {
   const addToCart = useAddToCart();
   return (
     <Box className="flex-1 m-1">
-      <Card className="flex-1 p-5 rounded-lg overflow-hidden">
-        <Link href={`/product/${product.id}`} asChild>
-          <Pressable>
-            <Image
-              source={{ uri: product.image }}
-              className="mb-6 h-[240px] w-full rounded-md"
-              alt={`${product.name} image`}
-              resizeMode="contain"
-            />
-            <Text className="text-sm font-normal mb-2 text-typography-700">
-              Electronics Items
-            </Text>
-            <VStack className="mb-6">
-              <Heading size="md" className="mb-4">
-                {product.name}
-              </Heading>
-              <Text size="sm">{product.description}</Text>
-            </VStack>
-            <VStack className="mb-2">
-              <Text className="text-sm font-bold mb-2 text-typography-700">
-                Amount: ₹{product.price}
+      <Card
+        className="flex-1 p-5 rounded-lg overflow-hidden"
+        style={{
+          flex: 1,
+          flexDirection: "column",
+          justifyContent: "space-between",
+          minHeight: 340,
+        }}
+      >
+        <Box>
+          <Link href={`/product/${product.id}`} asChild>
+            <Pressable>
+              <Image
+                source={{ uri: product.image }}
+                className="mb-6 h-[240px] w-full rounded-md"
+                alt={`${product.name} image`}
+                resizeMode="contain"
+              />
+              <Text className="text-sm font-normal mb-2 text-typography-700">
+                Electronics Items
               </Text>
-            </VStack>
-          </Pressable>
-        </Link>
+              <VStack className="mb-6">
+                <Heading size="md" className="mb-4">
+                  {product.name}
+                </Heading>
+                <Text size="sm">{product.description}</Text>
+              </VStack>
+              <VStack className="mb-2">
+                <Text className="text-sm font-bold mb-2 text-typography-700">
+                  Amount: ₹{product.price}
+                </Text>
+              </VStack>
+            </Pressable>
+          </Link>
+        </Box>
         <Box className="flex-col sm:flex-row mt-2" pointerEvents="auto">
           <Button
             onPress={() => addToCart(product)}
