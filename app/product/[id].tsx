@@ -147,7 +147,7 @@ export default function ProductPage() {
                 minWidth: 0,
                 flexDirection: "column",
                 justifyContent: "flex-start",
-                paddingBottom: 80,
+                paddingBottom: 24,
               }}
             >
               <Text className="text-sm font-normal mb-2 text-typography-700">
@@ -176,29 +176,27 @@ export default function ProductPage() {
               right: 0,
               bottom: 0,
               backgroundColor: "#fff",
-              paddingVertical: 8,
-              paddingHorizontal: 8,
+              paddingVertical: 0,
+              paddingHorizontal: 16,
               flexDirection: "row",
               gap: 12,
               zIndex: 9999,
               width: "100%",
-              borderTopWidth: 1,
-              borderColor: "#eee",
+              alignItems: "center",
+              justifyContent: "space-between",
             }}
             pointerEvents="auto"
           >
             <Button
               onPress={() => addToCart(product)}
-              className="bg-[#D4AF37] px-4 py-2 mr-0 mb-3 sm:mr-3 sm:mb-0 flex-1 rounded-md"
-              //style={{ backgroundColor: "#D4AF37", flex: 1, borderRadius: 8 }}
+              className="bg-[#D4AF37] px-4 py-2 flex-1 rounded-md"
               accessibilityRole="button"
             >
               <ButtonText size="sm">Add to Cart</ButtonText>
             </Button>
             <Button
               variant="outline"
-              className="px-4 py-2 mr-0 mb-3 sm:mr-3 sm:mb-0 flex-1 rounded-md"
-              //style={{ flex: 1, borderRadius: 8 }}
+              className="px-4 py-2 flex-1 rounded-md"
               accessibilityRole="button"
             >
               <ButtonText size="sm" className="text-typography-600">
