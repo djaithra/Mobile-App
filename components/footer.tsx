@@ -49,10 +49,29 @@ const Footer = () => {
           </Pressable>
         </Box>
         <Box style={{ flex: 1, alignItems: "center" }}>
-          <SettingsIcon size={24} color="#D4AF37" />
+          <Pressable
+            onPress={() => {}}
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              minWidth: 40,
+            }}
+            disabled
+          >
+            <SettingsIcon size={24} color="#D4AF37" />
+          </Pressable>
         </Box>
         <Box style={{ flex: 1, alignItems: "center" }}>
-          <User2Icon size={24} color="#D4AF37" />
+          <Pressable
+            onPress={() => router.push("/login")}
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              minWidth: 40,
+            }}
+          >
+            <User2Icon size={24} color="#D4AF37" />
+          </Pressable>
         </Box>
       </Box>
     </SafeAreaView>
