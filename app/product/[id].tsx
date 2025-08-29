@@ -14,6 +14,7 @@ import { Heading } from "@/components/ui/heading";
 import INRDisplay from "@/components/INRDisplay";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { getProductById } from "@/api/product";
+import { ShoppingCart } from "lucide-react-native";
 import { useQuery } from "@tanstack/react-query";
 import useCart from "@/store/cartstore";
 import { useAddToCart } from "@/hooks/useAddToCart";
@@ -124,9 +125,20 @@ export default function ProductPage() {
               >
                 <Button
                   onPress={() => addToCart(product)}
-                  style={{ backgroundColor: "#D4AF37", flex: 1 }}
+                  style={{
+                    backgroundColor: "#D4AF37",
+                    flex: 1,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
                   accessibilityRole="button"
                 >
+                  <ShoppingCart
+                    size={16}
+                    color="#fff"
+                    style={{ marginRight: 6 }}
+                  />
                   <ButtonText size="sm">Add to cart</ButtonText>
                 </Button>
                 <Button
@@ -189,9 +201,10 @@ export default function ProductPage() {
           >
             <Button
               onPress={() => addToCart(product)}
-              className="bg-[#D4AF37] px-4 py-2 flex-1 rounded-md"
+              className="bg-[#D4AF37] px-4 py-2 flex-1 rounded-md flex-row items-center justify-center"
               accessibilityRole="button"
             >
+              <ShoppingCart size={16} color="#fff" style={{ marginRight: 6 }} />
               <ButtonText size="sm">Add to Cart</ButtonText>
             </Button>
             <Button
