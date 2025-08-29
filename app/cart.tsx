@@ -8,6 +8,8 @@ import { VStack } from "@/components/ui/vstack";
 import { Button, ButtonText } from "@/components/ui/button";
 import { Box } from "@/components/ui/box";
 import { Redirect } from "expo-router";
+import { createOrder } from "@/api/order";
+import { useMutation } from "@tanstack/react-query";
 
 interface Product {
   id: number;
@@ -19,9 +21,27 @@ export default function CartScreen() {
   const cartItems = useCart((state) => state.items);
   const resetCart = useCart((state) => state.resetCart);
 
+  const orderMutation = useMutation({
+    mutationFn: (items: Product[]) =>
+      createOrder(
+        items.map((item) => ({
+          productId: item.id,
+          quantity: item.quantity,
+          price: item.price,
+        }))
+      ),
+    onSuccess: () => {
+      console.log("Order created successfully:", orderMutation.data);
+      resetCart();
+    },
+    onError: (error) => {
+      console.error("Error creating order:", error);
+    },
+  });
+
   const onCheckout = () => {
     // Handle checkout logic
-    resetCart();
+    orderMutation.mutate(cartItems);
   };
   if (cartItems.length === 0) {
     return <Redirect href={"/"} />;
