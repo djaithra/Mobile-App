@@ -118,7 +118,12 @@ export default function CartScreen() {
             className="bg-[#D4AF37] rounded-md"
             style={{ backgroundColor: "#D4AF37", borderRadius: 8 }}
           >
-            <ButtonText>Checkout</ButtonText>
+            <ButtonText>
+              {`Proceed to Buy (${cartItems.reduce(
+                (acc, item) => acc + item.quantity,
+                0
+              )} items)`}
+            </ButtonText>
           </Button>
         </Pressable>
       </Box>
