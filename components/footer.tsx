@@ -29,18 +29,30 @@ const Footer: React.FC<FooterProps> = ({ drawerOpen, setDrawerOpen }) => {
   const router = useRouter();
   const isWeb = typeof window !== "undefined" && window.document;
   const open =
-    isWeb && typeof drawerOpen === "boolean" ? drawerOpen : internalDrawerOpen;
+    typeof drawerOpen === "boolean" ? drawerOpen : internalDrawerOpen;
   const setOpen =
-    isWeb && typeof setDrawerOpen === "function"
-      ? setDrawerOpen
-      : setInternalDrawerOpen;
+    typeof setDrawerOpen === "function" ? setDrawerOpen : setInternalDrawerOpen;
   const pathname = usePathname();
 
-  // Always close Drawer on route change
   useEffect(() => {
     if (open) setOpen(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
+
+  if (isWeb) {
+    // On web, only render the Drawer, controlled by header logo click
+    return (
+      <Drawer
+        visible={open}
+        onClose={() => setOpen(false)}
+        anchor="left"
+        width={300}
+      >
+        <AppDrawer onClose={() => setOpen(false)} />
+      </Drawer>
+    );
+  }
+  // Native: show full footer
   return (
     <>
       <SafeAreaView edges={["bottom"]} style={{ backgroundColor: "#fff" }}>
