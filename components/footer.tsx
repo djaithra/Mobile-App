@@ -1,5 +1,5 @@
 // components/Footer.tsx
-import React from "react";
+import React, { useState } from "react";
 import { Text } from "@/components/ui/text";
 import { Box } from "@/components/ui/box";
 import {
@@ -8,41 +8,31 @@ import {
   User2Icon,
   MenuIcon,
   LogOutIcon,
+  ShoppingBagIcon,
+  BellIcon,
+  StarIcon,
+  HelpCircleIcon,
 } from "lucide-react-native";
 import { Pressable } from "react-native";
 import { Drawer } from "@/components/ui/drawer";
 import { useRouter } from "expo-router";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Footer = () => {
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const router = useRouter();
-  const insets = useSafeAreaInsets();
-  const [drawerOpen, setDrawerOpen] = React.useState(false);
   return (
     <>
-      <SafeAreaView
-        style={{
-          backgroundColor: "#ffffff",
-          width: "100%",
-          paddingBottom: 50,
-          paddingTop: 0,
-          minHeight: 90,
-          maxHeight: 90,
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <SafeAreaView edges={["bottom"]} style={{ backgroundColor: "#fff" }}>
         <Box
           style={{
             flexDirection: "row",
-            justifyContent: "space-evenly",
+            justifyContent: "space-around",
             alignItems: "center",
-            width: "100%",
-            marginBottom: 0,
-            marginTop: 18,
+            height: 64,
+            borderTopWidth: 1,
+            borderColor: "#eee",
+            backgroundColor: "#fff",
           }}
         >
           <Box style={{ flex: 1, alignItems: "center" }}>
@@ -103,24 +93,20 @@ const Footer = () => {
         anchor="left"
       >
         <Box style={{ padding: 24 }}>
+          {/* User Info Section */}
+          <Box style={{ marginBottom: 32 }}>
+            <Text style={{ fontWeight: "bold", fontSize: 20, marginBottom: 4 }}>
+              John Doe
+            </Text>
+            <Text style={{ color: "#888", fontSize: 14 }}>
+              123 Main St, City, Country
+            </Text>
+          </Box>
+          {/* Menu Items */}
           <Pressable
             onPress={() => {
               setDrawerOpen(false);
-              router.push("/");
-            }}
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginBottom: 24,
-            }}
-          >
-            <LucideHome size={22} color="#D4AF37" />
-            <Text style={{ fontSize: 18, marginLeft: 12 }}>Home</Text>
-          </Pressable>
-          <Pressable
-            onPress={() => {
-              setDrawerOpen(false);
-              router.push("/login");
+              // Add navigation for My Account here
             }}
             style={{
               flexDirection: "row",
@@ -129,7 +115,73 @@ const Footer = () => {
             }}
           >
             <User2Icon size={22} color="#D4AF37" />
-            <Text style={{ fontSize: 18, marginLeft: 12 }}>Login</Text>
+            <Text style={{ fontSize: 15, fontWeight: "bold", marginLeft: 12 }}>
+              My Account
+            </Text>
+          </Pressable>
+          <Pressable
+            onPress={() => {
+              setDrawerOpen(false);
+              // Add navigation for Shop By Category here
+            }}
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginBottom: 24,
+            }}
+          >
+            <ShoppingBagIcon size={22} color="#D4AF37" />
+            <Text style={{ fontSize: 15, fontWeight: "bold", marginLeft: 12 }}>
+              Shop By Category
+            </Text>
+          </Pressable>
+          <Pressable
+            onPress={() => {
+              setDrawerOpen(false);
+              // Add navigation for Notifications here
+            }}
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginBottom: 24,
+            }}
+          >
+            <BellIcon size={22} color="#D4AF37" />
+            <Text style={{ fontSize: 15, fontWeight: "bold", marginLeft: 12 }}>
+              Notifications
+            </Text>
+          </Pressable>
+          <Pressable
+            onPress={() => {
+              setDrawerOpen(false);
+              // Add navigation for Rate our App here
+            }}
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginBottom: 24,
+            }}
+          >
+            <StarIcon size={22} color="#D4AF37" />
+            <Text style={{ fontSize: 15, fontWeight: "bold", marginLeft: 12 }}>
+              Rate our app
+            </Text>
+          </Pressable>
+          <Pressable
+            onPress={() => {
+              setDrawerOpen(false);
+              // Add navigation for Need help? here
+            }}
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginBottom: 24,
+            }}
+          >
+            <HelpCircleIcon size={22} color="#D4AF37" />
+            <Text style={{ fontSize: 15, fontWeight: "bold", marginLeft: 12 }}>
+              Need Help?
+            </Text>
           </Pressable>
           <Pressable
             onPress={() => {
@@ -138,7 +190,9 @@ const Footer = () => {
             style={{ flexDirection: "row", alignItems: "center" }}
           >
             <LogOutIcon size={22} color="#D4AF37" />
-            <Text style={{ fontSize: 18, marginLeft: 12 }}>Signout</Text>
+            <Text style={{ fontSize: 15, fontWeight: "bold", marginLeft: 12 }}>
+              Signout
+            </Text>
           </Pressable>
         </Box>
       </Drawer>
