@@ -31,7 +31,6 @@ export default function ProductPage() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const cartItems = useCart((state) => state.items);
   const quantity = getCartItemQuantity(Number(id));
-
   const {
     data: product,
     isLoading,
@@ -55,56 +54,144 @@ export default function ProductPage() {
   }
 
   return (
-    <Card className="flex-1 m-1 p-5 rounded-lg overflow-hidden">
-      <Stack.Screen
-        options={{ title: product.name, headerTitleAlign: "center" }}
-      />
-      <Box
-        style={{
-          flex: 1,
-          flexDirection: isWide ? "row" : "column",
-          position: "relative",
-          minHeight: 0,
-        }}
-        pointerEvents="box-none"
-      >
-        {/* Product Image and Details Column */}
+    <>
+      <Card className="flex-1 m-1 p-5 rounded-lg overflow-hidden">
+        <Stack.Screen
+          options={{ title: product.name, headerTitleAlign: "center" }}
+        />
         <Box
           style={{
-            flexDirection: isWide ? "row" : "column",
             flex: 1,
-            minWidth: 0,
+            flexDirection: isWide ? "row" : "column",
+            position: "relative",
+            minHeight: 0,
           }}
+          pointerEvents="box-none"
         >
-          {/* Product Image */}
+          {/* Product Image and Details Column */}
           <Box
             style={{
-              height: isWide ? 400 : 360,
-              width: isWide ? 400 : window.width,
-              justifyContent: "center",
-              alignItems: "center",
-              marginBottom: isWide ? 0 : 110,
-              marginRight: isWide ? 32 : 0,
-              flexShrink: 0,
+              flexDirection: isWide ? "row" : "column",
+              flex: 1,
+              minWidth: 0,
             }}
           >
-            <ZoomableImage
-              uri={product.image}
-              height={isWide ? 400 : 360}
-              width={isWide ? 400 : window.width}
-            />
-          </Box>
-          {/* Details Column */}
-          {isWide ? (
+            {/* Product Image */}
             <Box
               style={{
-                flex: 1,
-                minWidth: 0,
-                flexDirection: "column",
-                justifyContent: "flex-end",
+                height: isWide ? 400 : 360,
+                width: isWide ? 400 : window.width,
+                justifyContent: "center",
+                alignItems: "center",
+                marginBottom: isWide ? 0 : 110,
+                marginRight: isWide ? 32 : 0,
+                flexShrink: 0,
               }}
             >
-              <Box style={{ flexGrow: 1 }}>
+              <ZoomableImage
+                uri={product.image}
+                height={isWide ? 400 : 360}
+                width={isWide ? 400 : window.width}
+              />
+            </Box>
+            {/* Details Column */}
+            {isWide ? (
+              <Box
+                style={{
+                  flex: 1,
+                  minWidth: 0,
+                  flexDirection: "column",
+                  justifyContent: "flex-end",
+                }}
+              >
+                <Box style={{ flexGrow: 1 }}>
+                  <Text className="text-sm font-normal mb-2 text-typography-700">
+                    Electronics Items
+                  </Text>
+                  <VStack className="mb-6">
+                    <Heading size="md" className="mb-4">
+                      {product.name}
+                    </Heading>
+                    <Text size="sm">{product.description}</Text>
+                  </VStack>
+                  <VStack className="mb-2">
+                    <Text className="text-sm font-bold mb-2 text-typography-700">
+                      ₹{product.price}
+                    </Text>
+                  </VStack>
+                </Box>
+                <Box
+                  style={{
+                    flexDirection: "row",
+                    gap: 16,
+                    marginTop: 24,
+                    width: "100%",
+                  }}
+                >
+                  {quantity === 0 ? (
+                    <>
+                      <Button
+                        onPress={() => incrementItemQuantity(product)}
+                        style={{
+                          backgroundColor: "#D4AF37",
+                          flex: 1,
+                          height: 32,
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                        accessibilityRole="button"
+                      >
+                        <ShoppingCart
+                          size={16}
+                          color="#fff"
+                          style={{ marginRight: 6 }}
+                        />
+                        <ButtonText size="sm">Add to cart</ButtonText>
+                      </Button>
+                      <Button
+                        variant="outline"
+                        style={{ flex: 1, height: 32 }}
+                        accessibilityRole="button"
+                      >
+                        <ButtonText size="sm" className="text-typography-600">
+                          Wishlist
+                        </ButtonText>
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <NumericInput
+                        value={quantity}
+                        min={0}
+                        onChange={(val) => setItemQuantity(product, val)}
+                        onIncrement={() => incrementItemQuantity(product)}
+                        onDecrement={() => decrementItemQuantity(product)}
+                        style={{ flex: 1, marginRight: 8, height: 32 }}
+                      />
+                      <Button
+                        variant="outline"
+                        style={{ flex: 1, height: 32 }}
+                        accessibilityRole="button"
+                      >
+                        <ButtonText size="sm" className="text-typography-600">
+                          Wishlist
+                        </ButtonText>
+                      </Button>
+                    </>
+                  )}
+                </Box>
+              </Box>
+            ) : (
+              <Box
+                style={{
+                  flex: 1,
+                  minWidth: 0,
+                  flexDirection: "column",
+                  justifyContent: "flex-start",
+                  paddingBottom: 24,
+                }}
+              >
                 <Text className="text-sm font-normal mb-2 text-typography-700">
                   Electronics Items
                 </Text>
@@ -120,135 +207,79 @@ export default function ProductPage() {
                   </Text>
                 </VStack>
               </Box>
-              <Box
-                style={{
-                  flexDirection: "row",
-                  gap: 16,
-                  marginTop: 24,
-                  width: "100%",
-                }}
-              >
-                {quantity === 0 ? (
+            )}
+          </Box>
+          {/* Fixed bottom buttons for mobile only, outside main Box for true overlay */}
+          {!isWide && (
+            <Box
+              style={{
+                position: "absolute",
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: "#fff",
+                paddingVertical: 0,
+                flexDirection: "row",
+                gap: 12,
+                zIndex: 9999,
+                width: "100%",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+              pointerEvents="auto"
+            >
+              {quantity === 0 ? (
+                <>
                   <Button
                     onPress={() => incrementItemQuantity(product)}
-                    style={{
-                      backgroundColor: "#D4AF37",
-                      flex: 1,
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
+                    className="bg-[#D4AF37] px-4 py-2 flex-1 rounded-md flex-row items-center justify-center"
                     accessibilityRole="button"
+                    style={{ height: 32 }}
                   >
                     <ShoppingCart
                       size={16}
                       color="#fff"
                       style={{ marginRight: 6 }}
                     />
-                    <ButtonText size="sm">Add to cart</ButtonText>
+                    <ButtonText size="sm">Add to Cart</ButtonText>
                   </Button>
-                ) : (
+                  <Button
+                    variant="outline"
+                    className="px-4 py-2 flex-1 rounded-md"
+                    accessibilityRole="button"
+                    style={{ height: 32 }}
+                  >
+                    <ButtonText size="sm" className="text-typography-600">
+                      Wishlist
+                    </ButtonText>
+                  </Button>
+                </>
+              ) : (
+                <>
                   <NumericInput
                     value={quantity}
                     min={0}
                     onChange={(val) => setItemQuantity(product, val)}
                     onIncrement={() => incrementItemQuantity(product)}
                     onDecrement={() => decrementItemQuantity(product)}
-                    style={{ flex: 1, marginRight: 8 }}
+                    style={{ flex: 1, marginRight: 8, height: 32 }}
                   />
-                )}
-                <Button
-                  variant="outline"
-                  style={{ flex: 1 }}
-                  accessibilityRole="button"
-                >
-                  <ButtonText size="sm" className="text-typography-600">
-                    Wishlist
-                  </ButtonText>
-                </Button>
-              </Box>
-            </Box>
-          ) : (
-            <Box
-              style={{
-                flex: 1,
-                minWidth: 0,
-                flexDirection: "column",
-                justifyContent: "flex-start",
-                paddingBottom: 24,
-              }}
-            >
-              <Text className="text-sm font-normal mb-2 text-typography-700">
-                Electronics Items
-              </Text>
-              <VStack className="mb-6">
-                <Heading size="md" className="mb-4">
-                  {product.name}
-                </Heading>
-                <Text size="sm">{product.description}</Text>
-              </VStack>
-              <VStack className="mb-2">
-                <Text className="text-sm font-bold mb-2 text-typography-700">
-                  ₹{product.price}
-                </Text>
-              </VStack>
+                  <Button
+                    variant="outline"
+                    className="px-4 py-2 flex-1 rounded-md"
+                    accessibilityRole="button"
+                    style={{ height: 32 }}
+                  >
+                    <ButtonText size="sm" className="text-typography-600">
+                      Wishlist
+                    </ButtonText>
+                  </Button>
+                </>
+              )}
             </Box>
           )}
         </Box>
-        {/* Fixed bottom buttons for mobile only, outside main Box for true overlay */}
-        {!isWide && (
-          <Box
-            style={{
-              position: "absolute",
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundColor: "#fff",
-              paddingVertical: 0,
-              flexDirection: "row",
-              gap: 12,
-              zIndex: 9999,
-              width: "100%",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-            pointerEvents="auto"
-          >
-            {quantity === 0 ? (
-              <Button
-                onPress={() => incrementItemQuantity(product)}
-                className="bg-[#D4AF37] px-4 py-2 flex-1 rounded-md flex-row items-center justify-center"
-                accessibilityRole="button"
-              >
-                <ShoppingCart
-                  size={16}
-                  color="#fff"
-                  style={{ marginRight: 6 }}
-                />
-                <ButtonText size="sm">Add to Cart</ButtonText>
-              </Button>
-            ) : (
-              <NumericInput
-                value={quantity}
-                min={0}
-                onChange={(val) => setItemQuantity(product, val)}
-                onIncrement={() => incrementItemQuantity(product)}
-                onDecrement={() => decrementItemQuantity(product)}
-                style={{ flex: 1, marginRight: 8 }}
-              />
-            )}
-            <Button
-              variant="outline"
-              className="px-4 py-2 flex-1 rounded-md"
-              accessibilityRole="button"
-            >
-              <ButtonText size="sm" className="text-typography-600">
-                Wishlist
-              </ButtonText>
-            </Button>
-          </Box>
-        )}
-      </Box>
-    </Card>
+      </Card>
+    </>
   );
 }
