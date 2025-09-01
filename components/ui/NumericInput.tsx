@@ -51,7 +51,7 @@ const NumericInput: React.FC<NumericInputProps> = ({
         onPress={onDecrement}
         style={{
           backgroundColor: "#D4AF37",
-          minWidth: 32,
+          width: 32,
           height: 32,
           paddingHorizontal: 0,
           marginLeft: 4,
@@ -59,26 +59,30 @@ const NumericInput: React.FC<NumericInputProps> = ({
           borderBottomRightRadius: 0,
           borderTopLeftRadius: 6,
           borderBottomLeftRadius: 6,
+          alignItems: "center",
+          justifyContent: "center",
           ...flatButtonStyle,
         }}
         disabled={disabled || value <= min}
       >
-        <ButtonText>-</ButtonText>
+        <ButtonText style={{ fontWeight: "bold", fontSize: 18 }}>-</ButtonText>
       </Button>
       <TextInput
         value={value.toString()}
         onChangeText={handleInputChange}
         keyboardType="numeric"
         style={{
-          minWidth: 31,
+          width: 31,
           height: 31,
           borderWidth: 1,
           borderColor: "#D4AF37",
           textAlign: "center",
           fontWeight: "bold",
+          fontSize: 16,
           paddingVertical: 0,
-          paddingHorizontal: 4,
+          paddingHorizontal: 0,
           backgroundColor: disabled ? "#f5f5f5" : "#fff",
+          borderRadius: 0,
           ...flatInputStyle,
         }}
         editable={!disabled}
@@ -91,17 +95,19 @@ const NumericInput: React.FC<NumericInputProps> = ({
         onPress={onIncrement}
         style={{
           backgroundColor: "#D4AF37",
-          minWidth: 32,
+          width: 32,
           height: 32,
           borderTopLeftRadius: 0,
           borderBottomLeftRadius: 0,
           borderTopRightRadius: 6,
           borderBottomRightRadius: 6,
+          alignItems: "center",
+          justifyContent: "center",
           ...flatButtonStyle,
         }}
         disabled={disabled || value >= max}
       >
-        <ButtonText style={{ fontWeight: "bold" }}>+</ButtonText>
+        <ButtonText style={{ fontWeight: "bold", fontSize: 18 }}>+</ButtonText>
       </Button>
     </View>
   );
