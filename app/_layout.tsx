@@ -71,6 +71,7 @@ export default function RootLayout() {
                   </Text>
                 ),
                 headerTitleAlign: "center",
+                headerRight: () => <CartBadge />,
               }}
             >
               <Stack.Screen name="index" options={{}} />

@@ -1,5 +1,5 @@
 // components/Footer.tsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Text } from "@/components/ui/text";
 import { Box } from "@/components/ui/box";
 import {
@@ -16,7 +16,7 @@ import {
 import { Pressable } from "react-native";
 import { Drawer } from "@/components/ui/drawer";
 import AppDrawer from "@/components/AppDrawer";
-import { useRouter } from "expo-router";
+import { useRouter, usePathname } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 interface FooterProps {
@@ -34,6 +34,13 @@ const Footer: React.FC<FooterProps> = ({ drawerOpen, setDrawerOpen }) => {
     isWeb && typeof setDrawerOpen === "function"
       ? setDrawerOpen
       : setInternalDrawerOpen;
+  const pathname = usePathname();
+
+  // Always close Drawer on route change
+  useEffect(() => {
+    if (open) setOpen(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
   return (
     <>
       <SafeAreaView edges={["bottom"]} style={{ backgroundColor: "#fff" }}>
