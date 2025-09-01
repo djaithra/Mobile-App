@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import { Card } from "@/components/ui/card";
 import { Heading } from "@/components/ui/heading";
-import INRDisplay from "@/components/INRDisplay";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { getProductById } from "@/api/product";
 import { ShoppingCart } from "lucide-react-native";
@@ -111,7 +110,7 @@ export default function ProductPage() {
                 </VStack>
                 <VStack className="mb-2">
                   <Text className="text-sm font-bold mb-2 text-typography-700">
-                    <INRDisplay amount={product.price} />
+                    ₹{product.price}
                   </Text>
                 </VStack>
               </Box>
@@ -173,7 +172,7 @@ export default function ProductPage() {
               </VStack>
               <VStack className="mb-2">
                 <Text className="text-sm font-bold mb-2 text-typography-700">
-                  <INRDisplay amount={product.price} />
+                  ₹{product.price}
                 </Text>
               </VStack>
             </Box>
