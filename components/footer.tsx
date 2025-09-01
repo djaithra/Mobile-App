@@ -15,12 +15,25 @@ import {
 } from "lucide-react-native";
 import { Pressable } from "react-native";
 import { Drawer } from "@/components/ui/drawer";
+import AppDrawer from "@/components/AppDrawer";
 import { useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const Footer = () => {
-  const [drawerOpen, setDrawerOpen] = useState(false);
+interface FooterProps {
+  drawerOpen?: boolean;
+  setDrawerOpen?: (open: boolean) => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ drawerOpen, setDrawerOpen }) => {
+  const [internalDrawerOpen, setInternalDrawerOpen] = useState(false);
   const router = useRouter();
+  const isWeb = typeof window !== "undefined" && window.document;
+  const open =
+    isWeb && typeof drawerOpen === "boolean" ? drawerOpen : internalDrawerOpen;
+  const setOpen =
+    isWeb && typeof setDrawerOpen === "function"
+      ? setDrawerOpen
+      : setInternalDrawerOpen;
   return (
     <>
       <SafeAreaView edges={["bottom"]} style={{ backgroundColor: "#fff" }}>
@@ -49,7 +62,7 @@ const Footer = () => {
           </Box>
           <Box style={{ flex: 1, alignItems: "center" }}>
             <Pressable
-              onPress={() => setDrawerOpen(true)}
+              onPress={() => setOpen(true)}
               style={{
                 alignItems: "center",
                 justifyContent: "center",
@@ -88,113 +101,12 @@ const Footer = () => {
         </Box>
       </SafeAreaView>
       <Drawer
-        visible={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
+        visible={open}
+        onClose={() => setOpen(false)}
         anchor="left"
+        width={isWeb ? 300 : undefined}
       >
-        <Box style={{ padding: 24 }}>
-          {/* User Info Section */}
-          <Box style={{ marginBottom: 32 }}>
-            <Text style={{ fontWeight: "bold", fontSize: 20, marginBottom: 4 }}>
-              John Doe
-            </Text>
-            <Text style={{ color: "#888", fontSize: 14 }}>
-              123 Main St, City, Country
-            </Text>
-          </Box>
-          {/* Menu Items */}
-          <Pressable
-            onPress={() => {
-              setDrawerOpen(false);
-              // Add navigation for My Account here
-            }}
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginBottom: 24,
-            }}
-          >
-            <User2Icon size={22} color="#D4AF37" />
-            <Text style={{ fontSize: 15, fontWeight: "bold", marginLeft: 12 }}>
-              My Account
-            </Text>
-          </Pressable>
-          <Pressable
-            onPress={() => {
-              setDrawerOpen(false);
-              // Add navigation for Shop By Category here
-            }}
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginBottom: 24,
-            }}
-          >
-            <ShoppingBagIcon size={22} color="#D4AF37" />
-            <Text style={{ fontSize: 15, fontWeight: "bold", marginLeft: 12 }}>
-              Shop By Category
-            </Text>
-          </Pressable>
-          <Pressable
-            onPress={() => {
-              setDrawerOpen(false);
-              // Add navigation for Notifications here
-            }}
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginBottom: 24,
-            }}
-          >
-            <BellIcon size={22} color="#D4AF37" />
-            <Text style={{ fontSize: 15, fontWeight: "bold", marginLeft: 12 }}>
-              Notifications
-            </Text>
-          </Pressable>
-          <Pressable
-            onPress={() => {
-              setDrawerOpen(false);
-              // Add navigation for Rate our App here
-            }}
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginBottom: 24,
-            }}
-          >
-            <StarIcon size={22} color="#D4AF37" />
-            <Text style={{ fontSize: 15, fontWeight: "bold", marginLeft: 12 }}>
-              Rate our app
-            </Text>
-          </Pressable>
-          <Pressable
-            onPress={() => {
-              setDrawerOpen(false);
-              // Add navigation for Need help? here
-            }}
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginBottom: 24,
-            }}
-          >
-            <HelpCircleIcon size={22} color="#D4AF37" />
-            <Text style={{ fontSize: 15, fontWeight: "bold", marginLeft: 12 }}>
-              Need Help?
-            </Text>
-          </Pressable>
-          <Pressable
-            onPress={() => {
-              setDrawerOpen(false); /* Add signout logic here */
-            }}
-            style={{ flexDirection: "row", alignItems: "center" }}
-          >
-            <LogOutIcon size={22} color="#D4AF37" />
-            <Text style={{ fontSize: 15, fontWeight: "bold", marginLeft: 12 }}>
-              Signout
-            </Text>
-          </Pressable>
-        </Box>
+        <AppDrawer onClose={() => setOpen(false)} />
       </Drawer>
     </>
   );
