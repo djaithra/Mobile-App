@@ -188,7 +188,6 @@ export default function ProductPage() {
               bottom: 0,
               backgroundColor: "#fff",
               paddingVertical: 0,
-              paddingHorizontal: 16,
               flexDirection: "row",
               gap: 12,
               zIndex: 9999,
