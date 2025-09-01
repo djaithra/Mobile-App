@@ -1,4 +1,9 @@
 import useCart from "@/store/cartstore";
+import {
+  incrementItemQuantity,
+  decrementItemQuantity,
+  setItemQuantity,
+} from "@/store/cartQuantityHelpers";
 import { FlatList, Pressable } from "react-native";
 import NumericInput from "@/components/ui/NumericInput";
 import { Image, Platform } from "react-native";
@@ -95,25 +100,9 @@ export default function CartScreen() {
               <NumericInput
                 value={item.quantity}
                 min={0}
-                onChange={(val) => {
-                  if (val === 0) {
-                    // Remove item from cart if quantity is set to 0
-                    removeItem(item.id);
-                  } else if (val > item.quantity) {
-                    for (let i = 0; i < val - item.quantity; i++) addItem(item);
-                  } else if (val < item.quantity) {
-                    for (let i = 0; i < item.quantity - val; i++)
-                      removeItem(item.id);
-                  }
-                }}
-                onIncrement={() => addItem(item)}
-                onDecrement={() => {
-                  if (item.quantity === 1) {
-                    removeItem(item.id);
-                  } else {
-                    removeItem(item.id);
-                  }
-                }}
+                onChange={(val) => setItemQuantity(item, val)}
+                onIncrement={() => incrementItemQuantity(item)}
+                onDecrement={() => decrementItemQuantity(item)}
                 style={{ marginLeft: 12 }}
               />
             </HStack>

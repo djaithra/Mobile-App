@@ -16,7 +16,13 @@ import { getProductById } from "@/api/product";
 import { ShoppingCart } from "lucide-react-native";
 import { useQuery } from "@tanstack/react-query";
 import useCart from "@/store/cartstore";
-import { useAddToCart } from "@/hooks/useAddToCart";
+import {
+  incrementItemQuantity,
+  decrementItemQuantity,
+  setItemQuantity,
+  getCartItemQuantity,
+} from "@/store/cartQuantityHelpers";
+import NumericInput from "@/components/ui/NumericInput";
 import ZoomableImage from "@/components/ZoomableImage";
 
 export default function ProductPage() {
@@ -24,7 +30,7 @@ export default function ProductPage() {
   const isWide = window.width > 700;
   const { id } = useLocalSearchParams<{ id: string }>();
   const cartItems = useCart((state) => state.items);
-  const addToCart = useAddToCart();
+  const quantity = getCartItemQuantity(Number(id));
 
   const {
     data: product,
@@ -122,24 +128,35 @@ export default function ProductPage() {
                   width: "100%",
                 }}
               >
-                <Button
-                  onPress={() => addToCart(product)}
-                  style={{
-                    backgroundColor: "#D4AF37",
-                    flex: 1,
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  accessibilityRole="button"
-                >
-                  <ShoppingCart
-                    size={16}
-                    color="#fff"
-                    style={{ marginRight: 6 }}
+                {quantity === 0 ? (
+                  <Button
+                    onPress={() => incrementItemQuantity(product)}
+                    style={{
+                      backgroundColor: "#D4AF37",
+                      flex: 1,
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    accessibilityRole="button"
+                  >
+                    <ShoppingCart
+                      size={16}
+                      color="#fff"
+                      style={{ marginRight: 6 }}
+                    />
+                    <ButtonText size="sm">Add to cart</ButtonText>
+                  </Button>
+                ) : (
+                  <NumericInput
+                    value={quantity}
+                    min={0}
+                    onChange={(val) => setItemQuantity(product, val)}
+                    onIncrement={() => incrementItemQuantity(product)}
+                    onDecrement={() => decrementItemQuantity(product)}
+                    style={{ flex: 1, marginRight: 8 }}
                   />
-                  <ButtonText size="sm">Add to cart</ButtonText>
-                </Button>
+                )}
                 <Button
                   variant="outline"
                   style={{ flex: 1 }}
@@ -197,14 +214,29 @@ export default function ProductPage() {
             }}
             pointerEvents="auto"
           >
-            <Button
-              onPress={() => addToCart(product)}
-              className="bg-[#D4AF37] px-4 py-2 flex-1 rounded-md flex-row items-center justify-center"
-              accessibilityRole="button"
-            >
-              <ShoppingCart size={16} color="#fff" style={{ marginRight: 6 }} />
-              <ButtonText size="sm">Add to Cart</ButtonText>
-            </Button>
+            {quantity === 0 ? (
+              <Button
+                onPress={() => incrementItemQuantity(product)}
+                className="bg-[#D4AF37] px-4 py-2 flex-1 rounded-md flex-row items-center justify-center"
+                accessibilityRole="button"
+              >
+                <ShoppingCart
+                  size={16}
+                  color="#fff"
+                  style={{ marginRight: 6 }}
+                />
+                <ButtonText size="sm">Add to Cart</ButtonText>
+              </Button>
+            ) : (
+              <NumericInput
+                value={quantity}
+                min={0}
+                onChange={(val) => setItemQuantity(product, val)}
+                onIncrement={() => incrementItemQuantity(product)}
+                onDecrement={() => decrementItemQuantity(product)}
+                style={{ flex: 1, marginRight: 8 }}
+              />
+            )}
             <Button
               variant="outline"
               className="px-4 py-2 flex-1 rounded-md"
