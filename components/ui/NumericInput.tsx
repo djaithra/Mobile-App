@@ -51,7 +51,7 @@ const NumericInput: React.FC<NumericInputProps> = ({
         onPress={onDecrement}
         style={{
           backgroundColor: "#D4AF37",
-          width: 32,
+          width: 44,
           height: 32,
           paddingHorizontal: 0,
           marginLeft: 4,
@@ -72,13 +72,13 @@ const NumericInput: React.FC<NumericInputProps> = ({
         onChangeText={handleInputChange}
         keyboardType="numeric"
         style={{
-          width: 31,
+          width: 35,
           height: 31,
           borderWidth: 1,
           borderColor: "#D4AF37",
           textAlign: "center",
-          fontWeight: "bold",
-          fontSize: 16,
+          fontWeight: "normal",
+          fontSize: 13,
           paddingVertical: 0,
           paddingHorizontal: 0,
           backgroundColor: disabled ? "#f5f5f5" : "#fff",
@@ -95,7 +95,7 @@ const NumericInput: React.FC<NumericInputProps> = ({
         onPress={onIncrement}
         style={{
           backgroundColor: "#D4AF37",
-          width: 32,
+          width: 44,
           height: 32,
           borderTopLeftRadius: 0,
           borderBottomLeftRadius: 0,
