@@ -50,13 +50,17 @@ const NumericInput: React.FC<NumericInputProps> = ({
       <Button
         onPress={onDecrement}
         style={{
+          backgroundColor: "#D4AF37",
           minWidth: 32,
           height: 32,
           paddingHorizontal: 0,
-          marginRight: 4,
+          marginLeft: 4,
+          borderTopRightRadius: 0,
+          borderBottomRightRadius: 0,
+          borderTopLeftRadius: 6,
+          borderBottomLeftRadius: 6,
           ...flatButtonStyle,
         }}
-        variant="outline"
         disabled={disabled || value <= min}
       >
         <ButtonText>-</ButtonText>
@@ -66,14 +70,12 @@ const NumericInput: React.FC<NumericInputProps> = ({
         onChangeText={handleInputChange}
         keyboardType="numeric"
         style={{
-          minWidth: 36,
-          height: 32,
+          minWidth: 31,
+          height: 31,
           borderWidth: 1,
-          borderColor: "#ccc",
-          borderRadius: 6,
+          borderColor: "#D4AF37",
           textAlign: "center",
           fontWeight: "bold",
-          marginHorizontal: 2,
           paddingVertical: 0,
           paddingHorizontal: 4,
           backgroundColor: disabled ? "#f5f5f5" : "#fff",
@@ -88,15 +90,18 @@ const NumericInput: React.FC<NumericInputProps> = ({
       <Button
         onPress={onIncrement}
         style={{
+          backgroundColor: "#D4AF37",
           minWidth: 32,
           height: 32,
-          paddingHorizontal: 0,
-          marginLeft: 4,
+          borderTopLeftRadius: 0,
+          borderBottomLeftRadius: 0,
+          borderTopRightRadius: 6,
+          borderBottomRightRadius: 6,
           ...flatButtonStyle,
         }}
         disabled={disabled || value >= max}
       >
-        <ButtonText>+</ButtonText>
+        <ButtonText style={{ fontWeight: "bold" }}>+</ButtonText>
       </Button>
     </View>
   );
