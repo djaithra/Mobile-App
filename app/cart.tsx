@@ -1,5 +1,6 @@
 import useCart from "@/store/cartstore";
 import { FlatList, Pressable } from "react-native";
+import NumericInput from "@/components/ui/NumericInput";
 import { Image, Platform } from "react-native";
 import React from "react";
 import { Text } from "@/components/ui/text";
@@ -18,7 +19,10 @@ interface Product {
 }
 
 export default function CartScreen() {
+  // ...existing code...
   const cartItems = useCart((state) => state.items);
+  const addItem = useCart((state) => state.addItem);
+  const removeItem = useCart((state) => state.removeItem);
   const resetCart = useCart((state) => state.resetCart);
 
   const orderMutation = useMutation({
@@ -88,7 +92,30 @@ export default function CartScreen() {
                 </Text>
                 <Text>₹{item.price}</Text>
               </VStack>
-              <Text className="ml-auto font-bold">{item.quantity}</Text>
+              <NumericInput
+                value={item.quantity}
+                min={0}
+                onChange={(val) => {
+                  if (val === 0) {
+                    // Remove item from cart if quantity is set to 0
+                    removeItem(item.id);
+                  } else if (val > item.quantity) {
+                    for (let i = 0; i < val - item.quantity; i++) addItem(item);
+                  } else if (val < item.quantity) {
+                    for (let i = 0; i < item.quantity - val; i++)
+                      removeItem(item.id);
+                  }
+                }}
+                onIncrement={() => addItem(item)}
+                onDecrement={() => {
+                  if (item.quantity === 1) {
+                    removeItem(item.id);
+                  } else {
+                    removeItem(item.id);
+                  }
+                }}
+                style={{ marginLeft: 12 }}
+              />
             </HStack>
           )}
         />
