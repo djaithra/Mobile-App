@@ -25,7 +25,7 @@ export const Drawer: React.FC<DrawerProps> = ({
   visible,
   onClose,
   anchor = "left",
-  width = screenWidth * 0.75,
+  width = screenWidth * 0.6,
   height = screenHeight,
   children,
 }) => {
