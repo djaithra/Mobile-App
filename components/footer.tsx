@@ -13,46 +13,18 @@ import {
   StarIcon,
   HelpCircleIcon,
 } from "lucide-react-native";
-import { Pressable } from "react-native";
-import { Drawer } from "@/components/ui/drawer";
-import AppDrawer from "@/components/AppDrawer";
+import { Pressable, Platform } from "react-native";
 import { useRouter, usePathname } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-interface FooterProps {
-  drawerOpen?: boolean;
-  setDrawerOpen?: (open: boolean) => void;
-}
-
-const Footer: React.FC<FooterProps> = ({ drawerOpen, setDrawerOpen }) => {
-  const [internalDrawerOpen, setInternalDrawerOpen] = useState(false);
+const Footer: React.FC = () => {
   const router = useRouter();
-  const isWeb = typeof window !== "undefined" && window.document;
-  const open =
-    typeof drawerOpen === "boolean" ? drawerOpen : internalDrawerOpen;
-  const setOpen =
-    typeof setDrawerOpen === "function" ? setDrawerOpen : setInternalDrawerOpen;
   const pathname = usePathname();
+  const isWeb = Platform.OS === "web";
 
-  useEffect(() => {
-    if (open) setOpen(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
-
-  if (isWeb) {
-    // On web, only render the Drawer, controlled by header logo click
-    return (
-      <Drawer
-        visible={open}
-        onClose={() => setOpen(false)}
-        anchor="left"
-        width={300}
-      >
-        <AppDrawer onClose={() => setOpen(false)} />
-      </Drawer>
-    );
-  }
-  // Native: show full footer
+  // Hide footer on web
+  if (isWeb) return null;
+  // Show footer navigation bar
   return (
     <>
       <SafeAreaView edges={["bottom"]} style={{ backgroundColor: "#fff" }}>
@@ -81,7 +53,9 @@ const Footer: React.FC<FooterProps> = ({ drawerOpen, setDrawerOpen }) => {
           </Box>
           <Box style={{ flex: 1, alignItems: "center" }}>
             <Pressable
-              onPress={() => setOpen(true)}
+              onPress={() => {
+                // Menu action removed; keep placeholder for future actions
+              }}
               style={{
                 alignItems: "center",
                 justifyContent: "center",
@@ -119,14 +93,6 @@ const Footer: React.FC<FooterProps> = ({ drawerOpen, setDrawerOpen }) => {
           </Box>
         </Box>
       </SafeAreaView>
-      <Drawer
-        visible={open}
-        onClose={() => setOpen(false)}
-        anchor="left"
-        width={isWeb ? 300 : undefined}
-      >
-        <AppDrawer onClose={() => setOpen(false)} />
-      </Drawer>
     </>
   );
 };

@@ -15,7 +15,7 @@ const queryClient = new QueryClient();
 
 export default function RootLayout() {
   const pathname = usePathname();
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  // Drawer removed - no drawer state
   return (
     <GestureHandlerRootView>
       <QueryClientProvider client={queryClient}>
@@ -25,33 +25,14 @@ export default function RootLayout() {
               screenOptions={{
                 headerBackVisible: false,
                 headerLeft: () => {
-                  if (Platform.OS === "web") {
-                    return (
-                      <Pressable
-                        onPress={() => setDrawerOpen(true)}
-                        style={{ marginLeft: 8 }}
-                      >
-                        <Image
-                          source={require("@/assets/logo.jpg")}
-                          style={{
-                            width: 36,
-                            height: 36,
-                            borderRadius: "50%",
-                            objectFit: "cover",
-                          }}
-                          accessibilityLabel="Logo"
-                          alt="Logo"
-                        />
-                      </Pressable>
-                    );
-                  }
                   return (
                     <Image
                       source={require("@/assets/logo.jpg")}
                       style={{
-                        width: 32,
-                        height: 32,
-                        borderRadius: 16,
+                        width: Platform.OS === "web" ? 36 : 32,
+                        height: Platform.OS === "web" ? 36 : 32,
+                        borderRadius: Platform.OS === "web" ? "50%" : 16,
+                        objectFit: Platform.OS === "web" ? "cover" : undefined,
                       }}
                       accessibilityLabel="Logo"
                       alt="Logo"
@@ -101,10 +82,7 @@ export default function RootLayout() {
                 }}
               />
             </Stack>
-            <Footer
-              drawerOpen={Platform.OS === "web" ? drawerOpen : undefined}
-              setDrawerOpen={Platform.OS === "web" ? setDrawerOpen : undefined}
-            />
+            <Footer />
           </Box>
         </GluestackUIProvider>
       </QueryClientProvider>
