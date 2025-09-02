@@ -117,9 +117,8 @@ export default function CartScreen() {
           left: 0,
           right: 0,
           bottom: 0,
-          paddingVertical: 8,
+          paddingVertical: 2,
           paddingHorizontal: 12,
-          borderTopWidth: 1,
           borderColor: "#eee",
           backgroundColor: "#fff",
           zIndex: 999,
@@ -139,7 +138,7 @@ export default function CartScreen() {
               backgroundColor: "#D4AF37",
               borderRadius: 8,
               width: "100%",
-              paddingVertical: 10,
+              paddingVertical: 6,
             }}
           >
             <ButtonText style={{ textAlign: "center" }}>
