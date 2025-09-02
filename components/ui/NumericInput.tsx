@@ -83,7 +83,6 @@ const NumericInput: React.FC<NumericInputProps> = ({
     <View
       onLayout={(e) => setContainerWidth(e.nativeEvent.layout.width)}
       style={[{ alignItems: "center", flexDirection: "row" }, flatStyle]}
-      className="px-4 mr-0 mb-3 sm:mr-3 sm:mb-0 sm:flex-1 rounded-md flex-row items-center justify-center min-w-[140px]"
     >
       <Button
         onPress={onDecrement}
@@ -92,7 +91,7 @@ const NumericInput: React.FC<NumericInputProps> = ({
           width: computedButtonWidth,
           height: controlsHeight,
           paddingHorizontal: 0,
-          marginLeft: 8,
+          marginLeft: 0,
           borderTopRightRadius: 0,
           borderBottomRightRadius: 0,
           borderTopLeftRadius: 6,
@@ -112,7 +111,7 @@ const NumericInput: React.FC<NumericInputProps> = ({
         style={{
           // width may be numeric, percentage string, or flex
           ...computedInputWidthStyle,
-          height: controlsHeight - 1,
+          height: controlsHeight,
           borderTopWidth: 1,
           borderBottomWidth: 1,
           borderColor: "#D4AF37",

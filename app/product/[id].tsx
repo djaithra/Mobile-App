@@ -20,8 +20,8 @@ import {
   incrementItemQuantity,
   decrementItemQuantity,
   setItemQuantity,
-  getCartItemQuantity,
 } from "@/store/cartQuantityHelpers";
+import { useAddToCart } from "@/hooks/useAddToCart";
 import NumericInput from "@/components/ui/NumericInput";
 import ZoomableImage from "@/components/ZoomableImage";
 
@@ -30,7 +30,11 @@ export default function ProductPage() {
   const isWide = window.width > 700;
   const { id } = useLocalSearchParams<{ id: string }>();
   const cartItems = useCart((state) => state.items);
-  const quantity = getCartItemQuantity(Number(id));
+  // reactive quantity so UI updates immediately
+  const quantity = useCart(
+    (state) => state.items.find((i) => i.id === Number(id))?.quantity || 0
+  );
+  const addToCart = useAddToCart();
   const {
     data: product,
     isLoading,
@@ -131,7 +135,7 @@ export default function ProductPage() {
                   {quantity === 0 ? (
                     <>
                       <Button
-                        onPress={() => incrementItemQuantity(product)}
+                        onPress={() => addToCart(product)}
                         style={{
                           backgroundColor: "#D4AF37",
                           flex: 1,
@@ -232,7 +236,7 @@ export default function ProductPage() {
               {quantity === 0 ? (
                 <>
                   <Button
-                    onPress={() => incrementItemQuantity(product)}
+                    onPress={() => addToCart(product)}
                     className="bg-[#D4AF37] px-4 py-2 flex-1 rounded-md flex-row items-center justify-center"
                     accessibilityRole="button"
                     style={{ height: 32 }}
