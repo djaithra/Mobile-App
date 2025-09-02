@@ -8,6 +8,13 @@ import { Heading } from "@/components/ui/heading";
 import * as React from "react";
 import { Link } from "expo-router";
 import { useAddToCart } from "@/hooks/useAddToCart";
+import useCart from "@/store/cartstore";
+import NumericInput from "@/components/ui/NumericInput";
+import {
+  incrementItemQuantity,
+  decrementItemQuantity,
+  setItemQuantity,
+} from "@/store/cartQuantityHelpers";
 import { ShoppingCart } from "lucide-react-native";
 
 interface Product {
@@ -24,6 +31,10 @@ interface ProductListItemProps {
 
 export default function ProductListItem({ product }: ProductListItemProps) {
   const addToCart = useAddToCart();
+  // subscribe to cart quantity for this product so component updates when cart changes
+  const quantity = useCart(
+    (state) => state.items.find((i) => i.id === product.id)?.quantity || 0
+  );
   return (
     <Box className="flex-1 m-1">
       <Card
@@ -61,20 +72,33 @@ export default function ProductListItem({ product }: ProductListItemProps) {
             </Pressable>
           </Link>
         </Box>
-        <Box className="flex-col sm:flex-row mt-2" pointerEvents="auto">
-          <Button
-            onPress={() => addToCart(product)}
-            className="px-4 py-2 mr-0 mb-3 sm:mr-3 sm:mb-0 sm:flex-1 rounded-md flex-row items-center justify-center min-w-[140px]"
-            style={{ backgroundColor: "#D4AF37" }}
-          >
-            <ShoppingCart size={16} color="#fff" style={{ marginRight: 6 }} />
-            <ButtonText size="sm" className="whitespace-nowrap">
-              Add to Cart
-            </ButtonText>
-          </Button>
+        <Box className="flex-col sm:flex-row mt-2 gap-3" pointerEvents="auto">
+          {quantity > 0 ? (
+            <NumericInput
+              value={quantity}
+              min={0}
+              onChange={(val: number) => setItemQuantity(product as any, val)}
+              onIncrement={() => incrementItemQuantity(product as any)}
+              onDecrement={() => decrementItemQuantity(product as any)}
+              style={{ marginLeft: 0, marginRight: 12 }}
+              inputWidth="flex"
+            />
+          ) : (
+            <Button
+              onPress={() => addToCart(product)}
+              className="px-4 py-2 mr-0 mb-3 sm:mr-3 sm:mb-0 sm:flex-1 rounded-md flex-row items-center justify-center min-w-[140px]"
+              style={{ backgroundColor: "#D4AF37", height: 32 }}
+            >
+              <ShoppingCart size={16} color="#fff" style={{ marginRight: 6 }} />
+              <ButtonText size="sm" className="whitespace-nowrap">
+                Add to Cart
+              </ButtonText>
+            </Button>
+          )}
           <Button
             variant="outline"
             className="px-4 py-2 border-outline-300 sm:flex-1"
+            style={{ height: 32 }}
           >
             <ButtonText size="sm" className="text-typography-600">
               Wishlist

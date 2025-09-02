@@ -101,10 +101,8 @@ export default function CartScreen() {
                 value={item.quantity}
                 min={0}
                 onChange={(val) => setItemQuantity(item, val)}
-                onIncrement={() => setItemQuantity(item, item.quantity + 1)}
-                onDecrement={() =>
-                  setItemQuantity(item, Math.max(0, item.quantity - 1))
-                }
+                onIncrement={() => incrementItemQuantity(item)}
+                onDecrement={() => decrementItemQuantity(item)}
                 style={{ marginLeft: 12 }}
               />
             </HStack>

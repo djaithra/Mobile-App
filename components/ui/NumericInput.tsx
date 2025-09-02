@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import { Button, ButtonText } from "@/components/ui/button";
 import { TextInput } from "react-native";
@@ -54,25 +54,45 @@ const NumericInput: React.FC<NumericInputProps> = ({
     ? Object.assign({}, ...buttonStyle)
     : buttonStyle;
 
-  // compute width style for the TextInput
+  // measure container width to calculate flexible button/input widths
+  const [containerWidth, setContainerWidth] = useState<number>(0);
+
+  // compute width style for the TextInput and buttons
   let computedInputWidthStyle: any = {};
+  let computedButtonWidth = 48; // default fallback
+  let controlsHeight = 32;
+
   if (inputWidth === "flex") {
-    computedInputWidthStyle = { flex: 1, minWidth: 35 };
+    if (containerWidth > 0) {
+      // allocate ~39% of container width to each button, remaining to input
+      const buttonAlloc = Math.max(48, Math.floor(containerWidth * 0.39));
+      // ensure there is at least 48px for input
+      const inputAlloc = Math.max(48, containerWidth - buttonAlloc * 2 - 8);
+      computedButtonWidth = buttonAlloc;
+      computedInputWidthStyle = { width: inputAlloc };
+    } else {
+      // unknown container yet, fall back to flex so layout won't break
+      computedInputWidthStyle = { flex: 1, minWidth: 35 };
+    }
   } else if (typeof inputWidth === "string") {
     computedInputWidthStyle = { width: inputWidth };
   } else if (typeof inputWidth === "number") {
     computedInputWidthStyle = { width: inputWidth };
   }
   return (
-    <View style={[{ alignItems: "center", flexDirection: "row" }, flatStyle]}>
+    <View
+      onLayout={(e) => setContainerWidth(e.nativeEvent.layout.width)}
+      style={[{ alignItems: "center", flexDirection: "row" }, flatStyle]}
+      className="px-4 mr-0 mb-3 sm:mr-3 sm:mb-0 sm:flex-1 rounded-md flex-row items-center justify-center min-w-[140px]"
+    >
       <Button
         onPress={onDecrement}
         style={{
           backgroundColor: "#D4AF37",
-          width: 44,
-          height: 32,
+          width: computedButtonWidth,
+          height: controlsHeight,
           paddingHorizontal: 0,
-          marginLeft: 4,
+          marginLeft: 8,
           borderTopRightRadius: 0,
           borderBottomRightRadius: 0,
           borderTopLeftRadius: 6,
@@ -92,8 +112,9 @@ const NumericInput: React.FC<NumericInputProps> = ({
         style={{
           // width may be numeric, percentage string, or flex
           ...computedInputWidthStyle,
-          height: 31,
-          borderWidth: 1,
+          height: controlsHeight - 1,
+          borderTopWidth: 1,
+          borderBottomWidth: 1,
           borderColor: "#D4AF37",
           textAlign: "center",
           fontWeight: "normal",
@@ -114,8 +135,8 @@ const NumericInput: React.FC<NumericInputProps> = ({
         onPress={onIncrement}
         style={{
           backgroundColor: "#D4AF37",
-          width: 44,
-          height: 32,
+          width: computedButtonWidth,
+          height: controlsHeight,
           borderTopLeftRadius: 0,
           borderBottomLeftRadius: 0,
           borderTopRightRadius: 6,
