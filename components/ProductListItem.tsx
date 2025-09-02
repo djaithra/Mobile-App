@@ -82,12 +82,12 @@ export default function ProductListItem({ product }: ProductListItemProps) {
               onDecrement={() => decrementItemQuantity(product as any)}
               style={{ marginLeft: 0, marginRight: 12 }}
               inputWidth="flex"
-              className="px-16 py-2 mr-0 sm:mb-0 sm:flex-1 rounded-md flex-row items-center justify-center min-w-[140px]"
+              className="px-4 py-2 mr-0 sm:mb-0 sm:flex-1 rounded-md flex-row items-center justify-center min-w-[140px]"
             />
           ) : (
             <Button
               onPress={() => addToCart(product)}
-              className="px-4 py-2 mr-0 mb-3 sm:mr-3 sm:mb-0 sm:flex-1 rounded-md flex-row items-center justify-center min-w-[140px]"
+              className="px-4 py-2 mr-0 mb-2 sm:mr-3 sm:mb-0 sm:flex-1 rounded-md flex-row items-center justify-center min-w-[140px]"
               style={{ backgroundColor: "#D4AF37", height: 32 }}
             >
               <ShoppingCart size={16} color="#fff" style={{ marginRight: 6 }} />
