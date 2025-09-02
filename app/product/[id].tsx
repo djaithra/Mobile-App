@@ -168,6 +168,7 @@ export default function ProductPage() {
                         onIncrement={() => incrementItemQuantity(product)}
                         onDecrement={() => decrementItemQuantity(product)}
                         style={{ flex: 1, marginRight: 8, height: 32 }}
+                        inputWidth={"flex"}
                       />
                       <Button
                         variant="outline"
@@ -263,6 +264,7 @@ export default function ProductPage() {
                     onIncrement={() => incrementItemQuantity(product)}
                     onDecrement={() => decrementItemQuantity(product)}
                     style={{ flex: 1, marginRight: 8, height: 32 }}
+                    inputWidth={"flex"}
                   />
                   <Button
                     variant="outline"

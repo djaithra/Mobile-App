@@ -13,6 +13,13 @@ interface NumericInputProps {
   style?: any;
   buttonStyle?: any;
   inputStyle?: any;
+  /**
+   * Controls the width of the numeric input field.
+   * - number -> fixed pixel width
+   * - string -> passed directly to style.width (e.g. '50%')
+   * - 'flex' -> input will expand to fill available space (flex: 1)
+   */
+  inputWidth?: number | string | "flex";
   disabled?: boolean;
 }
 
@@ -26,6 +33,7 @@ const NumericInput: React.FC<NumericInputProps> = ({
   style = {},
   buttonStyle = {},
   inputStyle = {},
+  inputWidth = 35,
   disabled = false,
 }) => {
   const handleInputChange = (val: string) => {
@@ -45,6 +53,16 @@ const NumericInput: React.FC<NumericInputProps> = ({
   const flatButtonStyle = Array.isArray(buttonStyle)
     ? Object.assign({}, ...buttonStyle)
     : buttonStyle;
+
+  // compute width style for the TextInput
+  let computedInputWidthStyle: any = {};
+  if (inputWidth === "flex") {
+    computedInputWidthStyle = { flex: 1, minWidth: 35 };
+  } else if (typeof inputWidth === "string") {
+    computedInputWidthStyle = { width: inputWidth };
+  } else if (typeof inputWidth === "number") {
+    computedInputWidthStyle = { width: inputWidth };
+  }
   return (
     <View style={[{ alignItems: "center", flexDirection: "row" }, flatStyle]}>
       <Button
@@ -72,7 +90,8 @@ const NumericInput: React.FC<NumericInputProps> = ({
         onChangeText={handleInputChange}
         keyboardType="numeric"
         style={{
-          width: 35,
+          // width may be numeric, percentage string, or flex
+          ...computedInputWidthStyle,
           height: 31,
           borderWidth: 1,
           borderColor: "#D4AF37",

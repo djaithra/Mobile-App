@@ -101,8 +101,10 @@ export default function CartScreen() {
                 value={item.quantity}
                 min={0}
                 onChange={(val) => setItemQuantity(item, val)}
-                onIncrement={() => incrementItemQuantity(item)}
-                onDecrement={() => decrementItemQuantity(item)}
+                onIncrement={() => setItemQuantity(item, item.quantity + 1)}
+                onDecrement={() =>
+                  setItemQuantity(item, Math.max(0, item.quantity - 1))
+                }
                 style={{ marginLeft: 12 }}
               />
             </HStack>
@@ -115,7 +117,8 @@ export default function CartScreen() {
           left: 0,
           right: 0,
           bottom: 0,
-          padding: 8,
+          paddingVertical: 8,
+          paddingHorizontal: 12,
           borderTopWidth: 1,
           borderColor: "#eee",
           backgroundColor: "#fff",
@@ -128,20 +131,25 @@ export default function CartScreen() {
             .reduce((acc, item) => acc + item.price * item.quantity, 0)
             .toFixed(2)}
         </Text>
-        <Pressable>
+        <Box style={{ width: "100%" }}>
           <Button
             onPress={onCheckout}
             className="bg-[#D4AF37] rounded-md"
-            style={{ backgroundColor: "#D4AF37", borderRadius: 8 }}
+            style={{
+              backgroundColor: "#D4AF37",
+              borderRadius: 8,
+              width: "100%",
+              paddingVertical: 10,
+            }}
           >
-            <ButtonText>
+            <ButtonText style={{ textAlign: "center" }}>
               {`Proceed to Buy (${cartItems.reduce(
                 (acc, item) => acc + item.quantity,
                 0
               )} items)`}
             </ButtonText>
           </Button>
-        </Pressable>
+        </Box>
       </Box>
     </Box>
   );
