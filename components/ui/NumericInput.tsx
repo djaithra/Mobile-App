@@ -13,6 +13,7 @@ interface NumericInputProps {
   style?: any;
   buttonStyle?: any;
   inputStyle?: any;
+  className?: string;
   /**
    * Controls the width of the numeric input field.
    * - number -> fixed pixel width
@@ -34,6 +35,7 @@ const NumericInput: React.FC<NumericInputProps> = ({
   buttonStyle = {},
   inputStyle = {},
   inputWidth = 35,
+  className = "",
   disabled = false,
 }) => {
   const handleInputChange = (val: string) => {
@@ -82,7 +84,15 @@ const NumericInput: React.FC<NumericInputProps> = ({
   return (
     <View
       onLayout={(e) => setContainerWidth(e.nativeEvent.layout.width)}
-      style={[{ alignItems: "center", flexDirection: "row" }, flatStyle]}
+      style={[
+        {
+          alignItems: "center",
+          flexDirection: "row",
+          justifyContent: "center",
+        },
+        flatStyle,
+      ]}
+      className={className}
     >
       <Button
         onPress={onDecrement}
@@ -91,7 +101,7 @@ const NumericInput: React.FC<NumericInputProps> = ({
           width: computedButtonWidth,
           height: controlsHeight,
           paddingHorizontal: 0,
-          marginLeft: 0,
+          marginLeft: 8,
           borderTopRightRadius: 0,
           borderBottomRightRadius: 0,
           borderTopLeftRadius: 6,

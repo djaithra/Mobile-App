@@ -82,6 +82,7 @@ export default function ProductListItem({ product }: ProductListItemProps) {
               onDecrement={() => decrementItemQuantity(product as any)}
               style={{ marginLeft: 0, marginRight: 12 }}
               inputWidth="flex"
+              className="px-16 py-2 mr-0 sm:mb-0 sm:flex-1 rounded-md flex-row items-center justify-center min-w-[140px]"
             />
           ) : (
             <Button
