@@ -135,6 +135,7 @@ export default function ProductPage() {
                   {quantity === 0 ? (
                     <>
                       <Button
+                        key="add-btn"
                         onPress={() => addToCart(product)}
                         style={{
                           backgroundColor: "#D4AF37",
@@ -154,6 +155,7 @@ export default function ProductPage() {
                         <ButtonText size="sm">Add to cart</ButtonText>
                       </Button>
                       <Button
+                        key="wishlist-wide"
                         variant="outline"
                         style={{ flex: 1, height: 32 }}
                         accessibilityRole="button"
@@ -166,15 +168,21 @@ export default function ProductPage() {
                   ) : (
                     <>
                       <NumericInput
+                        key="numeric-wide"
                         value={quantity}
                         min={0}
                         onChange={(val) => setItemQuantity(product, val)}
                         onIncrement={() => incrementItemQuantity(product)}
                         onDecrement={() => decrementItemQuantity(product)}
-                        style={{ flex: 1, marginRight: 8, height: 32 }}
+                        style={{
+                          flex: 1,
+                          marginRight: 8,
+                          height: 32,
+                        }}
                         inputWidth={"flex"}
                       />
                       <Button
+                        key="wishlist-wide-2"
                         variant="outline"
                         style={{ flex: 1, height: 32 }}
                         accessibilityRole="button"
@@ -236,10 +244,14 @@ export default function ProductPage() {
               {quantity === 0 ? (
                 <>
                   <Button
+                    key="add-bottom"
                     onPress={() => addToCart(product)}
-                    className="bg-[#D4AF37] px-4 py-2 flex-1 rounded-md flex-row items-center justify-center"
+                    className="px-4 py-2 flex-1 rounded-md flex-row items-center justify-center"
                     accessibilityRole="button"
-                    style={{ height: 32 }}
+                    style={{
+                      height: 32,
+                      backgroundColor: "#D4AF37",
+                    }}
                   >
                     <ShoppingCart
                       size={16}
@@ -249,6 +261,7 @@ export default function ProductPage() {
                     <ButtonText size="sm">Add to Cart</ButtonText>
                   </Button>
                   <Button
+                    key="wishlist-bottom"
                     variant="outline"
                     className="px-4 py-2 flex-1 rounded-md"
                     accessibilityRole="button"
@@ -262,15 +275,21 @@ export default function ProductPage() {
               ) : (
                 <>
                   <NumericInput
+                    key="numeric-bottom"
                     value={quantity}
                     min={0}
                     onChange={(val) => setItemQuantity(product, val)}
                     onIncrement={() => incrementItemQuantity(product)}
                     onDecrement={() => decrementItemQuantity(product)}
-                    style={{ flex: 1, marginRight: 8, height: 32 }}
+                    style={{
+                      flex: 1,
+                      marginRight: 8,
+                      height: 32,
+                    }}
                     inputWidth={"flex"}
                   />
                   <Button
+                    key="wishlist-bottom-2"
                     variant="outline"
                     className="px-4 py-2 flex-1 rounded-md"
                     accessibilityRole="button"
